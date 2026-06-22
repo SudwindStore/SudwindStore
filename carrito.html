@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrito — SÜDWIND STORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="img/Logos/ss_transparent.png">
+<link rel="stylesheet" href="css/style.css?v=11">
+<style>
+/* ── CARRITO — ESTILO LEUTTHE ── */
+.cart-page { max-width: 1160px; margin: 0 auto 80px; padding: 0 40px; min-height: 50vh; }
+.cart-nav-top { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 500; color: var(--gris-texto); margin: 24px 0 20px; text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+.cart-nav-top:hover { color: var(--negro); }
+
+/* BARRA DE BENEFICIOS */
+.benefits-bar { border: 1px solid var(--gris-medio); padding: 16px 24px; margin-bottom: 0; }
+.benefits-progress { height: 4px; background: var(--gris-medio); margin: 10px 0 8px; overflow: hidden; }
+.benefits-fill { height: 100%; background: var(--negro); transition: width 0.6s ease; }
+.benefits-msg { font-size: 0.75rem; color: var(--gris-texto); letter-spacing: 0.02em; }
+.benefits-msg strong { color: var(--negro); }
+
+/* LAYOUT */
+.cart-body { display: grid; grid-template-columns: 1fr 360px; border: 1px solid var(--gris-medio); border-top: none; }
+
+/* COLUMNA IZQUIERDA */
+.cart-items-panel { border-right: 1px solid var(--gris-medio); }
+.cart-items-header {
+  padding: 14px 24px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase;
+  border-bottom: 1px solid var(--gris-medio); color: var(--negro);
+}
+.cart-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 24px;
+  border-bottom: 1px solid var(--gris-medio);
+  position: relative;
+}
+.c-img { width: 90px; height: 116px; object-fit: cover; background: var(--crema); flex-shrink: 0; }
+.c-info-text { flex: 1; min-width: 0; }
+.c-cat { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gris-texto); margin-bottom: 6px; }
+.c-name { font-weight: 700; font-size: 0.85rem; color: var(--negro); line-height: 1.3; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+
+/* Controles de cantidad estilo leutthe: box simple */
+.c-qty-wrap { display: flex; align-items: center; gap: 0; margin-bottom: 14px; }
+.c-qty-wrap button {
+  width: 32px; height: 34px;
+  border: 1px solid var(--gris-medio); background: none; cursor: pointer;
+  font-size: 1rem; color: var(--negro); font-weight: 600; line-height: 1;
+  transition: background 0.15s;
+}
+.c-qty-wrap button:hover { background: var(--crema); }
+.c-qty-wrap span {
+  width: 44px; height: 34px;
+  border-top: 1px solid var(--gris-medio); border-bottom: 1px solid var(--gris-medio);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 600; color: var(--negro);
+}
+.c-price { font-size: 0.90rem; font-weight: 700; color: var(--negro); }
+.c-del {
+  position: absolute; top: 24px; right: 24px;
+  background: none; border: none; cursor: pointer;
+  color: var(--gris-texto); font-size: 0; /* icono SVG */
+  transition: color 0.2s; padding: 2px;
+}
+.c-del:hover { color: var(--negro); }
+
+/* Footer de productos */
+.cart-items-footer {
+  padding: 14px 24px; display: flex; justify-content: flex-end;
+  border-bottom: 1px solid var(--gris-medio);
+}
+.btn-vaciar {
+  background: none; border: none; cursor: pointer;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gris-texto); display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.btn-vaciar:hover { color: var(--negro); }
+
+/* COLUMNA DERECHA: RESUMEN */
+.cart-summary-panel { padding: 0; position: sticky; top: 120px; align-self: start; display: flex; flex-direction: column; max-height: calc(100vh - 140px); overflow-y: auto; scrollbar-width: none; }
+.cart-summary-panel::-webkit-scrollbar { display: none; }
+.summary-header { padding: 14px 24px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; color: var(--negro); border-bottom: 1px solid var(--gris-medio); }
+
+/* Barra cuotas dentro del resumen */
+.cuotas-bar { padding: 16px 24px; border-bottom: 1px solid var(--gris-medio); }
+.cuotas-txt { font-size: 0.72rem; color: var(--negro); font-weight: 500; margin-bottom: 10px; }
+.cuotas-track { height: 4px; background: var(--gris-medio); }
+.cuotas-fill { height: 100%; background: var(--negro); transition: width 0.6s ease; }
+
+/* Totales */
+.summary-totals { padding: 16px 24px; border-bottom: 1px solid var(--gris-medio); display: flex; flex-direction: column; gap: 8px; }
+.summary-row { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--gris-texto); }
+.summary-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--gris-medio); }
+.summary-total-label { font-size: 0.90rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--negro); }
+.summary-total-val { font-size: 1.3rem; font-weight: 700; color: var(--negro); }
+
+/* Formulario */
+.summary-form { padding: 20px 24px; border-bottom: 1px solid var(--gris-medio); display: flex; flex-direction: column; gap: 14px; }
+.chk-label { display: block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gris-texto); margin-bottom: 5px; }
+.chk-input {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid var(--gris-medio); border-radius: 0;
+  font-family: var(--font-body); font-size: 0.85rem; color: var(--negro);
+  background: var(--blanco); outline: none;
+  transition: border-color 0.2s; box-sizing: border-box;
+}
+.chk-input:focus { border-color: var(--negro); }
+
+/* Botón principal */
+.summary-cta { padding: 20px 24px; }
+.btn-checkout {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; background: var(--negro); color: var(--blanco);
+  border: 2px solid var(--negro); padding: 16px;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s; margin-bottom: 10px;
+}
+.btn-checkout:hover { background: var(--blanco); color: var(--negro); }
+.btn-keep {
+  display: block; width: 100%; text-align: center; background: none;
+  border: none; padding: 10px; font-size: 0.70rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+  color: var(--gris-texto); text-decoration: underline; transition: color 0.2s;
+}
+.btn-keep:hover { color: var(--negro); }
+
+.cart-empty { text-align: center; color: var(--gris-texto); padding: 80px 0; }
+.cart-empty p { font-size: 1rem; margin-bottom: 20px; }
+.cart-empty a { display: inline-block; padding: 14px 32px; background: var(--negro); color: var(--blanco); text-decoration: none; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+
+@media(max-width: 860px) {
+  .cart-page { padding: 0; margin: 0 0 80px; }
+  .cart-body { grid-template-columns: 1fr; border: none; }
+  .cart-items-panel { border-right: none; border: 1px solid var(--gris-medio); }
+  .cart-summary-panel { position: static; border: 1px solid var(--gris-medio); border-top: none; }
+  .c-img { width: 80px; height: 103px; }
+  .benefits-bar { margin: 0 0 0; }
+  .summary-header { border-top: 1px solid var(--gris-medio); }
+}
+</style>
+</head>
+<body>
+
+<!-- -- HEADER -- -->
+<header id="header">
+  <div class="header-top">
+    ✦ Elegancia Old Money &nbsp;&nbsp; 📍 Envíos a todo el país &nbsp;&nbsp; ✦
+  </div>
+  <div class="header-main">
+    <a href="index.html" class="logo-wrap">
+      <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 32px; object-fit: contain; margin-right: 6px; display: block;">
+      <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 32px; object-fit: contain; display: block;">
+    </a>
+    
+    <div class="header-icons">
+      <a href="catalogo.html?search=focus" class="icon-btn" aria-label="Buscar" style="text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      </a>
+
+      <a href="cuenta.html" class="icon-btn" aria-label="Mi Cuenta" style="text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+
+      <button class="icon-btn" id="cart-btn" aria-label="Carrito">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-pill" id="cart-count">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mob-nav" id="mob-nav">
+    <div class="mob-nav-logo">
+      <a href="index.html" class="logo-wrap" style="justify-content: flex-start; gap: 6px; padding: 10px 0; align-items: center;">
+        <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 26px; object-fit: contain; display: block;">
+        <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 26px; object-fit: contain; display: block;">
+      </a>
+    </div>
+    <a href="cuenta.html" style="color: var(--rosa-acento); font-weight: 600;">👤 Mi Cuenta / Favoritos</a>
+    <a href="catalogo.html">Ver todo</a>
+    <a href="catalogo.html?cat=Remeras">Remeras</a>
+    <a href="catalogo.html?cat=Camisas">Camisas</a>
+  </nav>
+</header>
+
+<div class="cart-page">
+  <a href="javascript:history.back()" class="cart-nav-top">← Volver</a>
+  <h1 class="cart-title">Mi Carrito</h1>
+
+  <div id="cart-content"></div>
+</div>
+
+<!-- -- FOOTER -- -->
+<footer>
+  <div class="footer-grid">
+    <div class="foot-brand">
+      <a href="#" class="logo-wrap" style="color:var(--blanco); justify-content: flex-start; gap: 6px; align-items: center;">
+        <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 26px; object-fit: contain; filter: brightness(0) invert(1); display: block;">
+        <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 26px; object-fit: contain; filter: brightness(0) invert(1); display: block;">
+      </a>
+      <p style="margin-top: 10px;">Südwind Store — Indumentaria masculina Old Money. Elegancia atemporal y confección nacional con el lema "Ropa para el Argentino de Bien".</p>
+      <div class="social-row">
+        <a href="https://instagram.com/[TuInstagram]" target="_blank" class="soc-btn" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://wa.me/[TuWhatsApp]" target="_blank" class="soc-btn" aria-label="WhatsApp">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Ayuda</h4>
+      <ul>
+        <li><a href="ayuda.html#pagos">Cómo comprar</a></li>
+        <li><a href="ayuda.html#envios">Envíos y tiempos</a></li>
+        <li><a href="ayuda.html#cambios">Cambios y devoluciones</a></li>
+        <li><a href="ayuda.html">Preguntas frecuentes</a></li>
+        <li><a href="https://wa.me/[TuWhatsApp]" target="_blank">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Südwind</h4>
+      <ul>
+        <li><a href="index.html">Quiénes somos</a></li>
+        <li><a href="ayuda.html">Términos y condiciones</a></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Südwind Store — Indumentaria masculina Old Money </p>
+
+  </div>
+</footer>
+
+<!-- BOTTOM NAV (MOBILE) -->
+<nav class="bottom-nav" id="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a href="index.html" class="bn-item" aria-label="Inicio">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="bn-label">Inicio</span>
+    </a>
+    <a href="catalogo.html" class="bn-item" aria-label="Catálogo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span class="bn-label">Catálogo</span>
+    </a>
+    <a href="catalogo.html?search=focus" class="bn-item" aria-label="Buscar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      <span class="bn-label">Buscar</span>
+    </a>
+    <button class="bn-item active" id="bn-cart" aria-label="Carrito">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="bn-badge" id="bn-cart-count">0</span>
+      <span class="bn-label">Carrito</span>
+    </button>
+  </div>
+</nav>
+
+<script src="js/main.js?v=24"></script>
+<script>
+const TRASH_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>`;
+
+document.addEventListener('DOMContentLoaded', renderCart);
+
+function toggleDeliveryFields() {
+  const delivery = document.getElementById('chk-delivery').value;
+  const addressGroup = document.getElementById('delivery-address-group');
+  const meetingGroup = document.getElementById('meeting-point-group');
+  
+  if (!addressGroup || !meetingGroup) return;
+  
+  if (delivery === 'Coordinar envío') {
+    addressGroup.style.display = 'flex';
+    meetingGroup.style.display = 'none';
+  } else {
+    addressGroup.style.display = 'none';
+    meetingGroup.style.display = 'flex';
+  }
+}
+
+function renderCart() {
+  const container = document.getElementById('cart-content');
+  const total = cart.reduce((s, i) => s + i.price * (i.qty || 1), 0);
+
+  if (!cart || cart.length === 0) {
+    container.innerHTML = `<div class="cart-empty"><p>Tu carrito está vacío.</p><a href="catalogo.html">Explorar productos</a></div>`;
+    return;
+  }
+
+  // PRODUCTOS (col izquierda)
+  const totalQty = cart.reduce((s, i) => s + (i.qty || 1), 0);
+  let items = `<div class="cart-items-panel">
+    <div class="cart-items-header">PRODUCTOS (${totalQty})</div>`;
+
+  cart.forEach((item, idx) => {
+    const qty = item.qty || 1;
+    let variantTxt = '';
+    if (item.selectedColor || item.selectedSize) {
+      const parts = [];
+      if (item.selectedColor) parts.push(`Color: ${item.selectedColor}`);
+      if (item.selectedSize) parts.push(`Talle: ${item.selectedSize}`);
+      variantTxt = `<div class="c-variant" style="font-size:0.75rem; color:var(--gris-texto); margin-bottom: 8px;">${parts.join(' | ')}</div>`;
+    }
+    items += `
+      <div class="cart-item">
+        <a href="producto.html?id=${item.id}"><img src="${item.imgs[0]}" alt="${item.name}" class="c-img"></a>
+        <div class="c-info-text">
+          <div class="c-cat">${item.cat}</div>
+          <div class="c-name"><a href="producto.html?id=${item.id}" style="text-decoration: none; color: inherit;">${item.name}</a></div>
+          ${variantTxt}
+          <div class="c-qty-wrap">
+            <button onclick="updateQty(${idx},-1)">−</button>
+            <span>${qty}</span>
+            <button onclick="updateQty(${idx},1)">+</button>
+          </div>
+          <div class="c-price">${formatPrice(item.price)}</div>
+        </div>
+        <button class="c-del" onclick="removeFromCart(${idx})" title="Eliminar">${TRASH_SVG}</button>
+      </div>`;
+  });
+
+  items += `<div class="cart-items-footer">
+    <button class="btn-vaciar" onclick="vaciarCarrito()">${TRASH_SVG} Vaciar carrito</button>
+  </div></div>`;
+
+  // SECCIÓN TAMBIÉN TE PUEDE GUSTAR
+  const cartIds = cart.map(c => c.id);
+  const sugeridos = PRODUCTS.filter(p => !cartIds.includes(p.id)).slice(0, 4);
+  
+  if (sugeridos.length > 0) {
+    let relHtml = `<div style="margin-top: 40px;">
+      <h3 style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; text-align: center; margin-bottom: 24px; color: var(--negro);">También te puede gustar</h3>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">`;
+      
+    sugeridos.forEach(r => {
+      relHtml += `
+        <a href="producto.html?id=${r.id}" class="fade-in" style="text-decoration:none; color:inherit; text-align:center; display:block;">
+          <img src="${r.imgs[0]}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; margin-bottom:10px; background:var(--crema);">
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px; color:var(--negro);">${r.name}</div>
+          <div style="font-size:0.85rem; font-weight:700; color:var(--negro);">${formatPrice(r.price)}</div>
+        </a>`;
+    });
+    
+    relHtml += `</div></div>`;
+    items += relHtml;
+  }
+
+  // RESUMEN (col derecha)
+  const envioTxt = 'A calcular';
+
+  const summary = `<div class="cart-summary-panel">
+    <div class="summary-header">RESUMEN</div>
+    <div class="summary-totals">
+      <div class="summary-row"><span>Subtotal</span><span>${formatPrice(total)}</span></div>
+      <div class="summary-row"><span>Envío</span><span>${envioTxt}</span></div>
+      <div class="summary-total-row">
+        <span class="summary-total-label">TOTAL*</span>
+        <span class="summary-total-val">${formatPrice(total)}</span>
+      </div>
+      <p style="font-size:0.65rem;color:var(--gris-texto);line-height:1.5;margin-top:8px;">
+        * El monto final se confirmará al elegir el método de envío.
+      </p>
+    </div>
+    <div class="summary-form">
+      <div>
+        <label class="chk-label">Tu nombre *</label>
+        <input type="text" class="chk-input" id="chk-name" placeholder="Ej: Camila Torres">
+      </div>
+      <div>
+        <label class="chk-label">Método de entrega</label>
+        <select class="chk-input" id="chk-delivery" onchange="toggleDeliveryFields()">
+          <option value="Coordinar envío">Coordinar envío (Moto / Uber)</option>
+          <option value="Coordinar punto de encuentro">Coordinar punto de encuentro</option>
+        </select>
+      </div>
+      
+      <!-- Campos de dirección de envío -->
+      <div id="delivery-address-group" style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label class="chk-label">Calle y Número *</label>
+          <input type="text" class="chk-input" id="chk-address" placeholder="Ej: Av. Mitre 1234">
+        </div>
+        <div>
+          <label class="chk-label">Piso / Depto (Opcional)</label>
+          <input type="text" class="chk-input" id="chk-floor" placeholder="Ej: Piso 2 Depto B">
+        </div>
+        <div>
+          <label class="chk-label">Localidad / Barrio *</label>
+          <input type="text" class="chk-input" id="chk-city" placeholder="Ej: Berazategui">
+        </div>
+      </div>
+      
+      <!-- Campos de punto de encuentro -->
+      <div id="meeting-point-group" style="display: none; flex-direction: column; gap: 14px;">
+        <label class="chk-label">Punto de encuentro *</label>
+        <select class="chk-input" id="chk-station">
+          <option value="Estación Berazategui">Estación Berazategui (Línea Roca)</option>
+          <option value="Estación Plátanos">Estación Plátanos (Línea Roca)</option>
+          <option value="Estación Hudson">Estación Hudson (Línea Roca)</option>
+          <option value="Estación Ranelagh">Estación Ranelagh (Línea Roca)</option>
+          <option value="Estación Ezpeleta">Estación Ezpeleta (Línea Roca)</option>
+          <option value="Estación Quilmes">Estación Quilmes (Línea Roca)</option>
+          <option value="Estación Bernal">Estación Bernal (Línea Roca)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="chk-label">Medio de pago</label>
+        <select class="chk-input" id="chk-payment">
+          <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="MercadoPago">MercadoPago</option>
+        </select>
+      </div>
+    </div>
+    <div class="summary-cta">
+      <button class="btn-checkout" onclick="checkoutWhatsApp()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Finalizar compra
+      </button>
+      <a href="catalogo.html" class="btn-keep">Seguir eligiendo</a>
+    </div>
+  </div>`;
+
+  container.innerHTML = `<div class="cart-body">
+    <div class="cart-left-col">
+      ${items}
+    </div>
+    ${summary}
+  </div>`;
+
+  const profile = JSON.parse(localStorage.getItem('sudwind_profile'));
+  if (profile) {
+    if (profile.name) document.getElementById('chk-name').value = profile.name;
+    if (profile.delivery) document.getElementById('chk-delivery').value = profile.delivery;
+    if (profile.payment) document.getElementById('chk-payment').value = profile.payment;
+    
+    // Rellenar dirección o estación
+    if (profile.address && document.getElementById('chk-address')) document.getElementById('chk-address').value = profile.address;
+    if (profile.floor && document.getElementById('chk-floor')) document.getElementById('chk-floor').value = profile.floor;
+    if (profile.city && document.getElementById('chk-city')) document.getElementById('chk-city').value = profile.city;
+    if (profile.station && document.getElementById('chk-station')) document.getElementById('chk-station').value = profile.station;
+  }
+
+  // Ajustar la visibilidad inicial de los campos de envío
+  toggleDeliveryFields();
+
+  setTimeout(() => {
+    if(window.sudwindObserver) {
+      document.querySelectorAll('.fade-in, .fade-up').forEach(el => window.sudwindObserver.observe(el));
+    }
+  }, 100);
+}
+
+function vaciarCarrito() {
+  if (!confirm('¿Vaciar todo el carrito?')) return;
+  cart = [];
+  localStorage.setItem('sudwind_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  localStorage.setItem('sudwind_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function updateQty(index, change) {
+  if (!cart[index]) return;
+  const newQty = (cart[index].qty || 1) + change;
+  if (newQty < 1) { removeFromCart(index); return; }
+  cart[index].qty = newQty;
+  localStorage.setItem('sudwind_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function checkoutWhatsApp() {
+  const name = document.getElementById('chk-name').value.trim();
+  const delivery = document.getElementById('chk-delivery').value;
+  const payment = document.getElementById('chk-payment').value;
+  
+  if (!name) { 
+    alert('Por favor ingresá tu nombre para continuar.'); 
+    document.getElementById('chk-name').focus(); 
+    return; 
+  }
+  
+  let address = '';
+  let floor = '';
+  let city = '';
+  let station = '';
+
+  if (delivery === 'Coordinar envío') {
+    address = document.getElementById('chk-address').value.trim();
+    floor = document.getElementById('chk-floor').value.trim();
+    city = document.getElementById('chk-city').value.trim();
+    if (!address) {
+      alert('Por favor ingresá la calle y número para el envío.');
+      document.getElementById('chk-address').focus();
+      return;
+    }
+    if (!city) {
+      alert('Por favor ingresá la localidad para el envío.');
+      document.getElementById('chk-city').focus();
+      return;
+    }
+  } else {
+    station = document.getElementById('chk-station').value;
+  }
+  
+  // Guardar datos de perfil para futuras compras
+  localStorage.setItem('sudwind_profile', JSON.stringify({ name, delivery, payment, address, floor, city, station }));
+  
+  let msg = `¡Hola equipo de Südwind Store! Soy ${name}.\nLes escribo porque armé mi carrito y me quiero llevar estos elegidos:\n\n`;
+  let total = 0;
+  cart.forEach(item => {
+    const qty = item.qty || 1;
+    let descOpts = [];
+    if (item.selectedColor) descOpts.push(item.selectedColor);
+    if (item.selectedSize) descOpts.push(item.selectedSize);
+    const optsStr = descOpts.length > 0 ? ` [${descOpts.join(' / ')}]` : '';
+    
+    msg += `• ${qty}x ${item.name}${optsStr} → ${formatPrice(item.price * qty)}\n`;
+    total += item.price * qty;
+  });
+  
+  msg += `\nTotal del pedido: ${formatPrice(total)}\n\n`;
+  
+  if (delivery === 'Coordinar envío') {
+    let fullAddr = address;
+    if (floor) fullAddr += `, ${floor}`;
+    fullAddr += `, ${city}`;
+    msg += `- Método de entrega: Envío a domicilio\n   Dirección: ${fullAddr}\n`;
+  } else {
+    msg += `- Método de entrega: Punto de encuentro\n   Punto: ${station}\n`;
+  }
+  
+  msg += `- Método de pago: ${payment}\n\n`;
+  msg += `¡Quedo a la espera para avanzar! Gracias.`;
+
+  window.open(`https://wa.me/[TuWhatsApp]?text=${encodeURIComponent(msg)}`, '_blank');
+}
+</script>
+</body>
+</html>

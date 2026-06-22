@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Producto — SÜDWIND STORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="img/Logos/ss_transparent.png">
+<link rel="stylesheet" href="css/style.css?v=11">
+<style>
+/* Estilos específicos de producto.html (reutilizamos la estructura del modal) */
+.product-page { max-width: 1100px; margin: 60px auto; padding: 0 40px; }
+.product-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; min-height: 500px; }
+
+.prod-gallery { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 100px; align-self: start; }
+.prod-main-img { position: relative; aspect-ratio: 3/4; border-radius: 10px; overflow: hidden; background: var(--crema); }
+.prod-main-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.25s ease, transform 0.4s ease; }
+.prod-main-img img.switching { opacity: 0; transform: scale(0.97); }
+
+.gallery-arrows { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; pointer-events: none; }
+.g-arrow { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--negro); pointer-events: all; transition: background var(--transition), transform var(--transition); box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
+.g-arrow:hover { background: var(--blanco); transform: scale(1.1); }
+
+.prod-thumbs { display: flex; gap: 10px; }
+.prod-thumb { flex: 1; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--crema); cursor: pointer; border: 2px solid transparent; transition: border-color var(--transition), transform var(--transition); }
+.prod-thumb:hover { transform: scale(1.04); }
+.prod-thumb.active { border-color: var(--rosa-acento); }
+.prod-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.prod-info-col { display: flex; flex-direction: column; gap: 0; }
+.prod-breadcrumb { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.20em; text-transform: uppercase; color: var(--gris-texto); margin-bottom: 8px; }
+.prod-title { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; color: var(--negro); margin-bottom: 16px; }
+
+.prod-price-block { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.prod-price { font-size: 1.8rem; font-weight: 700; color: var(--negro); }
+.prod-divider { height: 1px; background: var(--gris-medio); margin: 16px 0; }
+
+.prod-desc-text { font-size: 0.85rem; line-height: 1.75; color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; }
+
+/* ACORDEONES reusados */
+.accordions { margin-top: 20px; }
+
+@media(max-width: 768px) {
+  .product-page { padding: 0 24px; margin: 30px auto; }
+  .product-body { grid-template-columns: 1fr; gap: 30px; }
+  .prod-gallery { position: static; }
+}
+
+/* Estilos para selectores de variantes */
+.variant-group { display: flex; flex-direction: column; gap: 8px; }
+.variant-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--negro); }
+.variant-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.variant-btn {
+  padding: 8px 16px; border: 1.5px solid var(--gris-medio); background: var(--blanco);
+  font-family: var(--font-body); font-size: 0.82rem; font-weight: 500; text-transform: uppercase;
+  border-radius: 999px; cursor: pointer; transition: all var(--transition);
+}
+.variant-btn:hover:not(:disabled) { border-color: var(--rosa-acento); color: var(--rosa-acento); }
+.variant-btn.active { background: var(--negro); border-color: var(--negro); color: var(--blanco); }
+.variant-btn:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; border-color: var(--gris-medio); }
+</style>
+</head>
+<body>
+
+<!-- -- HEADER -- -->
+<header id="header">
+  <div class="header-top">
+    ✦ Elegancia Old Money &nbsp;&nbsp; 📍 Envíos a todo el país &nbsp;&nbsp; ✦
+  </div>
+  <div class="header-main">
+    <a href="index.html" class="logo-wrap">
+      <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 32px; object-fit: contain; margin-right: 6px; display: block;">
+      <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 32px; object-fit: contain; display: block;">
+    </a>
+    
+    <div class="header-icons">
+      <a href="catalogo.html?search=focus" class="icon-btn" aria-label="Buscar" style="text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      </a>
+
+      <a href="cuenta.html" class="icon-btn" aria-label="Mi Cuenta" style="text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+
+      <button class="icon-btn" id="cart-btn" aria-label="Carrito">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-pill" id="cart-count">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mob-nav" id="mob-nav">
+    <div class="mob-nav-logo">
+      <a href="index.html" class="logo-wrap" style="justify-content: flex-start; gap: 6px; padding: 10px 0; align-items: center;">
+        <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 26px; object-fit: contain; display: block;">
+        <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 26px; object-fit: contain; display: block;">
+      </a>
+    </div>
+    <a href="cuenta.html" style="color: var(--rosa-acento); font-weight: 600;">👤 Mi Cuenta / Favoritos</a>
+    <a href="catalogo.html">Ver todo</a>
+    <a href="catalogo.html?cat=Remeras">Remeras</a>
+    <a href="catalogo.html?cat=Camisas">Camisas</a>
+  </nav>
+</header>
+
+<div class="product-page">
+  <div class="product-body">
+    <!-- GALERIA -->
+    <div class="prod-gallery">
+      <div class="prod-main-img">
+        <img id="p-img-main" src="" alt="Producto">
+        <div class="gallery-arrows">
+          <button class="g-arrow" id="p-prev">‹</button>
+          <button class="g-arrow" id="p-next">›</button>
+        </div>
+      </div>
+      <div class="prod-thumbs" id="p-thumbs"></div>
+    </div>
+
+    <!-- INFO -->
+    <div class="prod-info-col">
+      <div class="prod-breadcrumb">Inicio > <span id="p-cat">Categoría</span></div>
+      <h1 class="prod-title" id="p-name">Cargando...</h1>
+      
+      <div class="prod-price-block">
+        <span class="prod-price" id="p-price"></span>
+      </div>
+      
+      <!-- Selectores de Variantes -->
+      <div class="variants-selectors" id="p-variants" style="margin-top: 15px; display: flex; flex-direction: column; gap: 16px;">
+        <!-- Se generarán dinámicamente con JS -->
+      </div>
+      
+      <div class="prod-divider"></div>
+      
+      <button class="btn-agregar" id="btn-add-product" style="width:100%; margin-top:10px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Agregar al carrito
+      </button>
+
+      <div class="prod-divider"></div>
+      
+      <p class="prod-desc-text" id="p-desc"></p>
+      
+      <div class="accordions">
+        <div class="accordion" id="acc-envios">
+          <button class="accordion-btn" onclick="toggleAcc('acc-envios')">
+            <span>🚚 &nbsp;Envíos y Entregas</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-body">
+            <p>
+              • <strong>Envíos:</strong> Realizados exclusivamente por Moto o Uber (entregas en el día).<br>
+              • <strong>Horarios:</strong> Lunes a sábados de 9:00 a 20:00 hs.<br>
+              • <strong>Puntos de encuentro:</strong> Coordinamos la entrega sin costo en estaciones de la línea Tren Roca (envíos a todo el país).<br>
+              • <strong>¿Querés probarte?</strong> ¡También tenés la opción de venir a probarte las prendas! Escribinos para coordinar una cita.
+            </p>
+          </div>
+        </div>
+        <div class="accordion" id="acc-cambios">
+          <button class="accordion-btn" onclick="toggleAcc('acc-cambios')">
+            <span>🔄 &nbsp;Cambios y devoluciones</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-body">
+            <p>
+              • <strong>Plazo:</strong> Se realizan cambios de prendas dentro de los 10 días de realizada la compra.<br>
+              • <strong>Excepciones:</strong> Por razones de higiene, no se realizan cambios de prendas blancas, bodys ni catsuits (sin excepción).<br>
+              • <strong>Condiciones:</strong> Las prendas deben estar sin uso, sin manchas y en perfectas condiciones.<br>
+              • <strong>Costos:</strong> Todos los envíos y traslados por cambios quedan a cargo del cliente.
+            </p>
+          </div>
+        </div>
+        <div class="accordion" id="acc-pago">
+          <button class="accordion-btn" onclick="toggleAcc('acc-pago')">
+            <span>💳 &nbsp;Medios de pago y Datos de Cuenta</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-body">
+            <p>
+              Aceptamos efectivo, Mercado Pago y transferencia bancaria. Si elegís abonar por transferencia, aquí tienes los datos:<br><br>
+              <strong>Alias:</strong> [Tu Alias]<br>
+              <strong>A nombre de:</strong> [Tus datos bancarios]<br>
+              <strong>CVU:</strong> [Tu CVU]<br>
+              <strong>CUIL:</strong> [Tu CUIL/CUIT]<br><br>
+              <em>* Recordá enviarnos el comprobante de transferencia por WhatsApp para confirmar y agendar tu pedido.</em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal-related" style="margin-top:60px;">
+    <div class="modal-related-title">✦ También te puede gustar</div>
+    <div class="related-grid" id="related-grid"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="t-icon">🛍️</span>
+  <span id="toast-msg">¡Producto agregado!</span>
+</div>
+
+<!-- -- FOOTER -- -->
+<footer>
+  <div class="footer-grid">
+    <div class="foot-brand">
+      <a href="#" class="logo-wrap" style="color:var(--blanco); justify-content: flex-start; gap: 6px; align-items: center;">
+        <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 26px; object-fit: contain; filter: brightness(0) invert(1); display: block;">
+        <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 26px; object-fit: contain; filter: brightness(0) invert(1); display: block;">
+      </a>
+      <p style="margin-top: 10px;">Südwind Store — Indumentaria masculina Old Money. Elegancia atemporal y confección nacional con el lema "Ropa para el Argentino de Bien".</p>
+      <div class="social-row">
+        <a href="https://instagram.com/[TuInstagram]" target="_blank" class="soc-btn" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://wa.me/[TuWhatsApp]" target="_blank" class="soc-btn" aria-label="WhatsApp">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Ayuda</h4>
+      <ul>
+        <li><a href="ayuda.html#pagos">Cómo comprar</a></li>
+        <li><a href="ayuda.html#envios">Envíos y tiempos</a></li>
+        <li><a href="ayuda.html#cambios">Cambios y devoluciones</a></li>
+        <li><a href="ayuda.html">Preguntas frecuentes</a></li>
+        <li><a href="https://wa.me/[TuWhatsApp]" target="_blank">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Südwind</h4>
+      <ul>
+        <li><a href="index.html">Quiénes somos</a></li>
+        <li><a href="ayuda.html">Términos y condiciones</a></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Südwind Store — Indumentaria masculina Old Money </p>
+
+  </div>
+</footer>
+
+<script src="js/main.js?v=24"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id')) || 1;
+  
+  const p = PRODUCTS.find(x => x.id === id);
+  if(!p) {
+    document.getElementById('p-name').textContent = "Producto no encontrado";
+    return;
+  }
+
+  // Set Info
+  document.getElementById('p-cat').textContent = p.cat;
+  document.getElementById('p-name').textContent = p.name;
+  
+  const isAgotado = p.desc.includes('AGOTADO');
+  const btnAdd = document.getElementById('btn-add-product');
+  if (isAgotado) {
+    document.getElementById('p-price').innerHTML = `<span style="text-decoration:line-through;color:var(--gris-texto);">${formatPrice(p.price)}</span> <span style="font-size:0.75rem;background:var(--bordo);color:var(--blanco);padding:2px 8px;border-radius:4px;margin-left:8px;font-weight:600;vertical-align:middle;">AGOTADO</span>`;
+    if (btnAdd) {
+      btnAdd.disabled = true;
+      btnAdd.style.backgroundColor = '#ccc';
+      btnAdd.style.color = '#777';
+      btnAdd.style.border = 'none';
+      btnAdd.style.cursor = 'not-allowed';
+      btnAdd.innerHTML = 'Agotado';
+    }
+  } else {
+    document.getElementById('p-price').textContent = formatPrice(p.price);
+  }
+  
+  document.getElementById('p-desc').innerHTML = p.desc;
+
+  // Render Variants Selectors
+  const varContainer = document.getElementById('p-variants');
+  varContainer.innerHTML = '';
+  
+  let selectedColor = null;
+  let selectedSize = null;
+
+  const colorButtons = {};
+  const sizeButtons = {};
+
+  function updateVariantButtons() {
+    if (p.sizesByColor) {
+      if (selectedColor) {
+        const allowedSizes = p.sizesByColor[selectedColor] || [];
+        p.sizes.forEach(sz => {
+          const btn = sizeButtons[sz];
+          if (btn) {
+            if (allowedSizes.includes(sz)) {
+              btn.removeAttribute('disabled');
+            } else {
+              btn.setAttribute('disabled', 'true');
+              if (selectedSize === sz) {
+                selectedSize = null;
+                btn.classList.remove('active');
+                document.getElementById('selected-size-txt').textContent = 'Seleccionar';
+              }
+            }
+          }
+        });
+      } else {
+        p.sizes.forEach(sz => {
+          sizeButtons[sz]?.removeAttribute('disabled');
+        });
+      }
+
+      if (selectedSize) {
+        p.colors.forEach(col => {
+          const btn = colorButtons[col];
+          if (btn) {
+            const allowedSizes = p.sizesByColor[col] || [];
+            if (allowedSizes.includes(selectedSize)) {
+              btn.removeAttribute('disabled');
+            } else {
+              btn.setAttribute('disabled', 'true');
+              if (selectedColor === col) {
+                selectedColor = null;
+                btn.classList.remove('active');
+                document.getElementById('selected-color-txt').textContent = 'Seleccionar';
+              }
+            }
+          }
+        });
+      } else {
+        p.colors.forEach(col => {
+          colorButtons[col]?.removeAttribute('disabled');
+        });
+      }
+    }
+  }
+
+  if (p.colors && p.colors.length > 0) {
+    const group = document.createElement('div');
+    group.className = 'variant-group';
+    group.innerHTML = `
+      <div class="variant-label">Color: <span id="selected-color-txt" style="font-weight: 500; color: var(--gris-texto); text-transform: none;">Seleccionar</span></div>
+      <div class="variant-options" id="color-options"></div>
+    `;
+    varContainer.appendChild(group);
+    
+    const opts = group.querySelector('#color-options');
+    p.colors.forEach(col => {
+      const btn = document.createElement('button');
+      btn.className = 'variant-btn';
+      btn.textContent = col;
+      colorButtons[col] = btn;
+      btn.addEventListener('click', () => {
+        if (btn.hasAttribute('disabled')) return;
+        if (selectedColor === col) {
+          btn.classList.remove('active');
+          selectedColor = null;
+          document.getElementById('selected-color-txt').textContent = 'Seleccionar';
+        } else {
+          opts.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedColor = col;
+          document.getElementById('selected-color-txt').textContent = col;
+        }
+        updateVariantButtons();
+      });
+      opts.appendChild(btn);
+    });
+  }
+
+  if (p.sizes && p.sizes.length > 0) {
+    const group = document.createElement('div');
+    group.className = 'variant-group';
+    group.innerHTML = `
+      <div class="variant-label">Talle: <span id="selected-size-txt" style="font-weight: 500; color: var(--gris-texto); text-transform: none;">Seleccionar</span></div>
+      <div class="variant-options" id="size-options"></div>
+    `;
+    varContainer.appendChild(group);
+    
+    const opts = group.querySelector('#size-options');
+    p.sizes.forEach(sz => {
+      const btn = document.createElement('button');
+      btn.className = 'variant-btn';
+      btn.textContent = sz;
+      sizeButtons[sz] = btn;
+      btn.addEventListener('click', () => {
+        if (btn.hasAttribute('disabled')) return;
+        if (selectedSize === sz) {
+          btn.classList.remove('active');
+          selectedSize = null;
+          document.getElementById('selected-size-txt').textContent = 'Seleccionar';
+        } else {
+          opts.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedSize = sz;
+          document.getElementById('selected-size-txt').textContent = sz;
+        }
+        updateVariantButtons();
+      });
+      opts.appendChild(btn);
+    });
+  }
+
+  // Gallery
+  const mainImg = document.getElementById('p-img-main');
+  const thumbsEl = document.getElementById('p-thumbs');
+  let currentImgIdx = 0;
+
+  function setMainImg(idx) {
+    currentImgIdx = (idx + p.imgs.length) % p.imgs.length;
+    mainImg.classList.add('switching');
+    setTimeout(() => {
+      mainImg.src = p.imgs[currentImgIdx];
+      mainImg.classList.remove('switching');
+    }, 200);
+
+    document.querySelectorAll('.prod-thumb').forEach((t, i) => {
+      t.classList.toggle('active', i === currentImgIdx);
+    });
+  }
+
+  setMainImg(0);
+
+  if (p.imgs.length <= 1) {
+    document.getElementById('p-prev').style.display = 'none';
+    document.getElementById('p-next').style.display = 'none';
+    thumbsEl.style.display = 'none';
+  } else {
+    p.imgs.forEach((src, i) => {
+      const div = document.createElement('div');
+      div.className = 'prod-thumb' + (i === 0 ? ' active' : '');
+      div.innerHTML = `<img src="${src}" alt="Vista ${i+1}" loading="lazy">`;
+      div.addEventListener('click', () => setMainImg(i));
+      thumbsEl.appendChild(div);
+    });
+  }
+
+  document.getElementById('p-prev').addEventListener('click', () => setMainImg(currentImgIdx - 1));
+  document.getElementById('p-next').addEventListener('click', () => setMainImg(currentImgIdx + 1));
+
+  // Add to cart
+  btnAdd.addEventListener('click', () => {
+    // Validar selección de variantes si existen
+    if (p.colors && p.colors.length > 0 && !selectedColor) {
+      showToast('⚠️', 'Por favor selecciona un Color');
+      return;
+    }
+    if (p.sizes && p.sizes.length > 0 && !selectedSize) {
+      showToast('⚠️', 'Por favor selecciona un Talle');
+      return;
+    }
+
+    addToCart(p.id, selectedColor, selectedSize);
+    
+    btnAdd.classList.add('added');
+    btnAdd.innerHTML = `✅ &nbsp;¡Agregado!`;
+    setTimeout(() => {
+      btnAdd.classList.remove('added');
+      btnAdd.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Agregar al carrito`;
+    }, 2200);
+  });
+
+  // Related
+  const related = PRODUCTS.filter(x => x.id !== p.id).slice(0, 4);
+  const relatedGrid = document.getElementById('related-grid');
+  related.forEach(r => {
+    const d = document.createElement('a');
+    d.href = `producto.html?id=${r.id}`;
+    d.className = 'related-card';
+    d.style.textDecoration = 'none';
+    d.innerHTML = `
+      <div class="related-img"><img src="${r.imgs[0]}" alt="${r.name}" loading="lazy"></div>
+      <div class="related-name">${r.name}</div>
+      <div class="related-price">${formatPrice(r.price)}</div>
+    `;
+    relatedGrid.appendChild(d);
+  });
+});
+</script>
+
+<!-- BOTTOM NAV (MOBILE) -->
+<nav class="bottom-nav" id="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a href="index.html" class="bn-item" aria-label="Inicio">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="bn-label">Inicio</span>
+    </a>
+    <a href="catalogo.html" class="bn-item" aria-label="Catálogo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span class="bn-label">Catálogo</span>
+    </a>
+    <a href="catalogo.html?search=focus" class="bn-item" aria-label="Buscar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      <span class="bn-label">Buscar</span>
+    </a>
+    <button class="bn-item" id="bn-cart" aria-label="Carrito">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="bn-badge" id="bn-cart-count">0</span>
+      <span class="bn-label">Carrito</span>
+    </button>
+  </div>
+</nav>
+
+</body>
+</html>
