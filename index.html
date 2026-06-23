@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SÜDWIND STORE — Indumentaria Masculina</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <link rel="icon" type="image/webp" href="img/Logos/ss_transparent.png">
 <link rel="stylesheet" href="css/style.css?v=11">
 </head>
@@ -13,7 +13,11 @@
 <!-- -- HEADER -- -->
 <header id="header">
   <div class="header-top">
-    ✦ Elegancia Old Money &nbsp;&nbsp; 📍 Envíos a todo el país &nbsp;&nbsp; ✦
+    <div class="header-top-track">
+      <div class="header-top-item">
+        ✦ Ya su trono dignísimo abrieron las Provincias Unidas del Sud. &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Y los libres del mundo responden: ¡Al gran pueblo argentino, salud! &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Sean eternos los laureles que supimos conseguir. &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Coronados de gloria vivamos, o juremos con gloria morir. &nbsp;&nbsp; ✦ &nbsp;&nbsp; Ya su trono dignísimo abrieron las Provincias Unidas del Sud. &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Y los libres del mundo responden: ¡Al gran pueblo argentino, salud! &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Sean eternos los laureles que supimos conseguir. &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Coronados de gloria vivamos, o juremos con gloria morir. &nbsp;&nbsp; ✦
+      </div>
+    </div>
   </div>
   <div class="header-main">
     <a href="index.html" class="logo-wrap">
@@ -46,86 +50,106 @@
         <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 26px; object-fit: contain; display: block;">
       </a>
     </div>
-    <a href="cuenta.html" style="color: var(--rosa-acento); font-weight: 600;">👤 Mi Cuenta / Favoritos</a>
+    <a href="cuenta.html" style="color: var(--rosa-acento); font-weight: 600;">Mi Cuenta / Favs</a>
     <a href="catalogo.html">Ver todo</a>
     <a href="catalogo.html?cat=Remeras">Remeras</a>
     <a href="catalogo.html?cat=Camisas">Camisas</a>
   </nav>
 </header>
 
-<!-- -- HERO CAROUSEL -- -->
-<section class="hero" id="hero-section">
-  <div class="carousel-track" id="hero-track">
-    <!-- Slide 1 -->
-    <div class="carousel-slide">
-      <img src="img/Logos/1.webp" class="slide-bg" alt="Nueva colección Südwind" fetchpriority="high" decoding="async">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Südwind Store</div>
-        <h1>Vestir con<em>orgullo.</em></h1>
-        <p class="hero-sub">Ropa para el Argentino de Bien. Calidad y distinción atemporal.</p>
-        <div class="hero-actions">
-          <a href="catalogo.html" class="btn-hero-main">Explorar colección &nbsp;→</a>
-        </div>
-      </div>
-    </div>
-    <!-- Slide 2 -->
-    <div class="carousel-slide">
-      <img src="img/Logos/2.webp" class="slide-bg" alt="Estilo Old Money" loading="lazy" decoding="async">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Diseño Exclusivo</div>
-        <h1>Estilo<em>Old Money</em></h1>
-        <p class="hero-sub">Elegancia clásica y atemporal con profundas raíces nacionales.</p>
-        <div class="hero-actions">
-          <a href="catalogo.html?cat=Remeras" class="btn-hero-main">Ver Colección &nbsp;→</a>
-        </div>
-      </div>
-    </div>
-    <!-- Slide 3 -->
-    <div class="carousel-slide">
-      <img src="img/Logos/3.webp" class="slide-bg" alt="Edición Limitada" loading="lazy" decoding="async">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Patria y Distinción</div>
-        <h1>Edición<em>Limitada</em></h1>
-        <p class="hero-sub">Prendas exclusivas diseñadas para vestir con elegancia y carácter.</p>
-        <div class="hero-actions">
-          <a href="catalogo.html?cat=Camisas" class="btn-hero-main">Explorar Camisas &nbsp;→</a>
-        </div>
-      </div>
-    </div>
+<!-- -- HERO STATIC -- -->
+<section class="hero-static" id="hero-section">
+  <img src="img/Logos/3.webp" alt="Fondo" class="hero-static-bg-image" fetchpriority="high" decoding="async">
+  <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="hero-static-logo" fetchpriority="high" decoding="async">
+  
+  <div class="hero-static-tl">
+    ELEGANCIA<br>ATEMPORAL<br>PARA VOS.
   </div>
-
-  <button class="hero-arrow prev" id="hero-prev" aria-label="Anterior"></button>
-  <button class="hero-arrow next" id="hero-next" aria-label="Siguiente"></button>
-
-  <div class="hero-dots" id="hero-dots"></div>
-
-  <div class="hero-scroll">
-    <div class="scroll-bar"></div>
+  
+  <div class="hero-static-bl">
+    <a href="catalogo.html" class="btn-hero-solid">COMPRAR AHORA</a>
+    <a href="catalogo.html" class="btn-hero-link">EXPLORAR LO NUEVO</a>
   </div>
+  
 </section>
 
 <!-- -- PROMO MARQUEE -- -->
 <div class="promo-bar">
   <div class="promo-track">
     <div class="promo-item">
-      ✦ Calidad argentina <span class="sep">✦</span>
+      Calidad argentina <span class="sep">✦</span>
       Estilo Old Money <span class="sep">✦</span>
       Elegancia que perdura <span class="sep">✦</span>
       Hecho para los que eligen bien <span class="sep">✦</span>
-      ✦ Calidad argentina <span class="sep">✦</span>
+      Calidad argentina <span class="sep">✦</span>
       Estilo Old Money <span class="sep">✦</span>
       Elegancia que perdura <span class="sep">✦</span>
       Hecho para los que eligen bien <span class="sep">✦</span>
-      ✦ Calidad argentina <span class="sep">✦</span>
+      Calidad argentina <span class="sep">✦</span>
       Estilo Old Money <span class="sep">✦</span>
       Elegancia que perdura <span class="sep">✦</span>
       Hecho para los que eligen bien <span class="sep">✦</span>
     </div>
   </div>
 </div>
+<!-- -- CATEGORY BANNER -- -->
+<div class="cat-banner">
+  <div class="cat-banner-inner">
+    
+    <!-- Item 1: Remeras -->
+    <div class="cat-banner-item">
+      <div class="cat-banner-img">
+        <img src="img/Productos/remera slim fit negra.webp" alt="Remeras" loading="lazy">
+      </div>
+      <div class="cat-banner-text">
+        <h3>REMERAS</h3>
+        <p>Esenciales del día a día.</p>
+        <a href="catalogo.html?cat=Remeras">COMPRAR REMERAS &rarr;</a>
+      </div>
+    </div>
+    
+    <!-- Item 2: Camisas -->
+    <div class="cat-banner-item">
+      <div class="cat-banner-img">
+        <img src="img/Productos/camisa blanca manga larga.webp" alt="Camisas" loading="lazy">
+      </div>
+      <div class="cat-banner-text">
+        <h3>CAMISAS</h3>
+        <p>Elegancia sin esfuerzo.</p>
+        <a href="catalogo.html?cat=Camisas">COMPRAR CAMISAS &rarr;</a>
+      </div>
+    </div>
+    
+    <!-- Item 3: Colección -->
+    <div class="cat-banner-item">
+      <div class="cat-banner-img">
+        <img src="img/Productos/remera oversize blanca.webp" alt="Colección" loading="lazy">
+      </div>
+      <div class="cat-banner-text">
+        <h3>COLECCIÓN</h3>
+        <p>Comodidad para cada día.</p>
+        <a href="catalogo.html">VER TODO &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- -- NEW VIBES SECTION -- -->
+<section class="new-vibes-sec">
+  <div class="new-vibes-left">
+    <div class="new-vibes-content fade-in">
+      <div class="nv-eyebrow">NUEVA TEMPORADA</div>
+      <h2 class="nv-title">NEW<br>VIBES</h2>
+      <p class="nv-desc">Descubrí todo lo nuevo<br>para vos esta temporada.</p>
+      <a href="catalogo.html" class="btn-nv">EXPLORAR COLECCIÓN</a>
+    </div>
+  </div>
+  <div class="new-vibes-right fade-in d1">
+    <img src="img/Productos/remera oversize blanca.webp" alt="Remera Oversize Blanca" loading="lazy">
+  </div>
+</section>
+
 
 <!-- -- TRUST -- -->
 <div class="trust-strip">
@@ -152,8 +176,7 @@
 <!-- -- NEW IN -- -->
 <div id="newin" class="section">
   <div class="sec-head">
-    <div class="sec-label fade-in">✶ Nuestra Colección</div>
-    <h2 class="sec-title fade-in">Nuestra <em>Colección</em></h2>
+    <h2 class="nv-title fade-in" style="text-align: center; margin-bottom: 10px;">NUESTRA COLECCIÓN</h2>
     <p class="sec-sub fade-in">Explorá todos nuestros ingresos y descubrí tus nuevos favoritos.</p>
   </div>
   
@@ -164,107 +187,8 @@
 
 </div>
 
-<!-- -- CATEGORIES -- -->
-<div class="cats-wrap">
-  <div class="cats-inner">
-    <div class="sec-head">
-      <div class="sec-label fade-in">✶ Explorá</div>
-      <h2 class="sec-title fade-in">¿Qué estás <em>buscando?</em></h2>
-    </div>
-    <div class="cats-grid">
-      <a href="catalogo.html" class="cat-card fade-in">
-        <div class="cat-img">
-          <img src="img/Productos/remera oversize blanca.webp" alt="Colección Completa" loading="lazy">
-        </div>
-        <span class="cat-name">Ver Todo</span>
-        <span class="cat-sub">Explorá nuestra colección completa</span>
-      </a>
-      <a href="catalogo.html?cat=Remeras" class="cat-card fade-in d1">
-        <div class="cat-img">
-          <img src="img/Productos/remera slim fit negra.webp" alt="Remeras" loading="lazy">
-        </div>
-        <span class="cat-name">Remeras</span>
-        <span class="cat-sub">Oversize, Slim Fit y Manga Larga</span>
-      </a>
-      <a href="catalogo.html?cat=Camisas" class="cat-card fade-in d2">
-        <div class="cat-img">
-          <img src="img/Productos/camisa blanca manga larga.webp" alt="Camisas" loading="lazy">
-        </div>
-        <span class="cat-name">Camisas</span>
-        <span class="cat-sub">Manga Larga y Corta Premium</span>
-      </a>
-    </div>
-  </div>
-</div>
-<!-- -- LOS CLÁSICOSS -- -->
-<div class="section">
-  <div class="sec-head">
-    <div class="sec-label fade-in">✦ Los Clásicos</div>
-    <h2 class="sec-title fade-in">Los <em>Clásicos</em></h2>
-    <p class="sec-sub fade-in">Los caballeros ya eligieron. El tuyo puede ser el último.</p>
-  </div>
-  <div class="prod-grid">
-    <a href="producto.html?id=1" class="prod-card fade-in" style="text-decoration:none;">
-      <div class="prod-img-box">
-        <span class="prod-badge badge-best" style="background:var(--negro);color:var(--blanco);">LOS CLÁSICOS</span>
-        <button class="prod-wish" onclick="event.preventDefault(); showToast('🤍', '¡Agregado a favoritos!');"></button>
-        <img src="img/Productos/remera oversize negra.webp" alt="Remeras Oversize Negra" loading="lazy">
-        <div class="prod-cta">+ Ver detalle</div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">Remeras Oversize Negra</div>
-        <div class="prod-prices">
-          <span class="price">$24.000</span>
-        </div>
-      </div>
-    </a>
 
-    <a href="producto.html?id=3" class="prod-card fade-in d1" style="text-decoration:none;">
-      <div class="prod-img-box">
-        <span class="prod-badge badge-best" style="background:var(--negro);color:var(--blanco);">LOS CLÁSICOS</span>
-        <button class="prod-wish" onclick="event.preventDefault(); showToast('🤍', '¡Agregado a favoritos!');"></button>
-        <img src="img/Productos/camiseta manga larga negra.webp" alt="Camiseta Manga Larga Negra" loading="lazy">
-        <div class="prod-cta">+ Ver detalle</div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">Camiseta Manga Larga Negra</div>
-        <div class="prod-prices">
-          <span class="price">$28.000</span>
-        </div>
-      </div>
-    </a>
 
-    <a href="producto.html?id=5" class="prod-card fade-in d2" style="text-decoration:none;">
-      <div class="prod-img-box">
-        <span class="prod-badge badge-best" style="background:var(--negro);color:var(--blanco);">LOS CLÁSICOS</span>
-        <button class="prod-wish" onclick="event.preventDefault(); showToast('🤍', '¡Agregado a favoritos!');"></button>
-        <img src="img/Productos/remera slim fit blanca.webp" alt="Remeras Slim Fit Blanca" loading="lazy">
-        <div class="prod-cta">+ Ver detalle</div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">Remeras Slim Fit Blanca</div>
-        <div class="prod-prices">
-          <span class="price">$22.000</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="producto.html?id=8" class="prod-card fade-in d3" style="text-decoration:none;">
-      <div class="prod-img-box">
-        <span class="prod-badge badge-best" style="background:var(--negro);color:var(--blanco);">LOS CLÁSICOS</span>
-        <button class="prod-wish" onclick="event.preventDefault(); showToast('🤍', '¡Agregado a favoritos!');"></button>
-        <img src="img/Productos/camisa blanca manga larga.webp" alt="Camisa Manga Larga Blanca" loading="lazy">
-        <div class="prod-cta">+ Ver detalle</div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">Camisa Manga Larga Blanca</div>
-        <div class="prod-prices">
-          <span class="price">$45.000</span>
-        </div>
-      </div>
-    </a>
-  </div>
-</div>
 
 
 
@@ -280,7 +204,7 @@
       </a>
       <p style="margin-top: 10px;">Südwind Store — Indumentaria masculina Old Money. Elegancia atemporal y confección nacional con el lema "Ropa para el Argentino de Bien".</p>
       <div class="social-row">
-        <a href="https://instagram.com/[TuInstagram]" target="_blank" class="soc-btn" aria-label="Instagram">
+        <a href="https://www.instagram.com/sudwind.ar/" target="_blank" class="soc-btn" aria-label="Instagram">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
         <a href="https://wa.me/[TuWhatsApp]" target="_blank" class="soc-btn" aria-label="WhatsApp">
@@ -308,7 +232,7 @@
 
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Südwind Store — Indumentaria masculina Old Money </p>
+    <p>© 2026 Südwind Store | Diseñado por <a href="https://www.instagram.com/ssnehuen/" target="_blank" style="color: var(--rosa-acento); text-decoration: none; font-weight: 600;">@ssnehuen</a></p>
 
   </div>
 </footer>

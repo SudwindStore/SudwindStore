@@ -704,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // FLOATING INSTAGRAM BUTTON
   // ════════════════════════════════════════
   const igBtn = document.createElement('a');
-  igBtn.href = 'https://instagram.com/[TuInstagram]';
+  igBtn.href = 'https://www.instagram.com/sudwind.ar/';
   igBtn.target = '_blank';
   igBtn.ariaLabel = 'Visitanos en Instagram';
   igBtn.style.cssText = `
@@ -753,4 +753,16 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', adjustIgBtnPos);
 
   document.body.appendChild(igBtn);
+
+  // ════════════════════════════════════════
+  // ALTERNATING NAME PLACEHOLDER
+  // ════════════════════════════════════════
+  const nameInputs = document.querySelectorAll('#prof-name, #chk-name');
+  if (nameInputs.length > 0) {
+    const names = ['Ej: César Augusto', 'Ej: Julio César'];
+    const lastToggle = localStorage.getItem('namePhToggle') || '0';
+    const nextToggle = lastToggle === '0' ? 1 : 0;
+    nameInputs.forEach(input => input.placeholder = names[nextToggle]);
+    localStorage.setItem('namePhToggle', nextToggle.toString());
+  }
 });
