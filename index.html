@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AISHA STORE — Indumentaria Femenina</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/Ejemplos/3.webp">
-<link rel="icon" type="image/jpeg" href="img/Ejemplos/aisha.webp">
+<title>SÜDWIND STORE — Indumentaria Masculina</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="img/Logos/ss_transparent.png">
 <link rel="stylesheet" href="css/style.css?v=11">
 </head>
 <body>
@@ -14,10 +13,17 @@
 <!-- -- HEADER -- -->
 <header id="header">
   <div class="header-top">
-    ✦ Somos de Berazategui &nbsp;&nbsp; Coordinamos tu envío &nbsp;&nbsp; Puntos de encuentro ✦
+    <div class="header-top-track">
+      <div class="header-top-item">
+        ✦ Ya su trono dignísimo abrieron las Provincias Unidas del Sud. &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Y los libres del mundo responden: ¡Al gran pueblo argentino, salud! &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Sean eternos los laureles que supimos conseguir. &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Coronados de gloria vivamos, o juremos con gloria morir. &nbsp;&nbsp; ✦ &nbsp;&nbsp; Ya su trono dignísimo abrieron las Provincias Unidas del Sud. &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Y los libres del mundo responden: ¡Al gran pueblo argentino, salud! &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Sean eternos los laureles que supimos conseguir. &nbsp;&nbsp; 🇦🇷 &nbsp;&nbsp; Coronados de gloria vivamos, o juremos con gloria morir. &nbsp;&nbsp; ✦
+      </div>
+    </div>
   </div>
   <div class="header-main">
-    <a href="index.html" class="logo">AISHA</a>
+    <a href="index.html" class="logo-wrap">
+      <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 32px; object-fit: contain; margin-right: 6px; display: block;">
+      <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 32px; object-fit: contain; display: block;">
+    </a>
     
     <div class="header-icons">
       <a href="catalogo.html?search=focus" class="icon-btn" aria-label="Buscar" style="text-decoration:none;">
@@ -39,120 +45,130 @@
   </div>
   <nav class="mob-nav" id="mob-nav">
     <div class="mob-nav-logo">
-      <span class="logo" style="color:var(--negro);font-size:1.6rem;letter-spacing:0.18em;">AISHA</span>
+      <a href="index.html" class="logo-wrap" style="justify-content: flex-start; gap: 6px; padding: 10px 0; align-items: center;">
+        <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 26px; object-fit: contain; display: block;">
+        <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 26px; object-fit: contain; display: block;">
+      </a>
     </div>
-    <a href="cuenta.html" style="color: var(--rosa-acento); font-weight: 600;">👤 Mi Cuenta / Favoritos</a>
+    <a href="cuenta.html" style="color: var(--rosa-acento); font-weight: 600;">Mi Cuenta / Favs</a>
     <a href="catalogo.html">Ver todo</a>
-    <a href="catalogo.html?cat=Remeras/Camisetas">Remeras/Camisetas</a>
-    <a href="catalogo.html?cat=Tops">Tops</a>
-    <a href="catalogo.html?cat=Bodys">Bodys</a>
-    <a href="catalogo.html?cat=Sueters">Sueters</a>
-    <a href="catalogo.html?cat=Vestidos">Vestidos</a>
-    <a href="catalogo.html?cat=Pantalones">Pantalones</a>
-    <a href="catalogo.html?cat=Shorts">Shorts</a>
-    <a href="catalogo.html?cat=Polleras">Polleras</a>
-    <a href="catalogo.html?cat=Conjuntos">Conjuntos</a>
-    <a href="catalogo.html?cat=Accesorios">Accesorios</a>
+    <a href="catalogo.html?cat=Remeras">Remeras</a>
+    <a href="catalogo.html?cat=Camisas">Camisas</a>
   </nav>
 </header>
 
-<!-- -- HERO CAROUSEL -- -->
-<section class="hero" id="hero-section">
-  <div class="carousel-track" id="hero-track">
-    <!-- Slide 1 -->
-    <div class="carousel-slide">
-      <img src="img/Ejemplos/carrusel 1.webp" class="slide-bg" alt="Nueva colección Aisha" fetchpriority="high" decoding="async">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Nueva colección</div>
-        <h1>Tu estilo,<em>tus reglas.</em></h1>
-        <p class="hero-sub">Descubrí los conjuntos que todas quieren. Básicos esenciales con actitud, diseñados para vos.</p>
-        <div class="hero-actions">
-          <a href="catalogo.html" class="btn-hero-main">Ver todo &nbsp;→</a>
-
-        </div>
-      </div>
-    </div>
-    <!-- Slide 2 -->
-    <div class="carousel-slide">
-      <img src="img/Ejemplos/carrusel 2.webp" class="slide-bg" alt="Looks urbanos" loading="lazy" decoding="async">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Tendencia</div>
-        <h1>Looks<em>Urbanos</em></h1>
-        <p class="hero-sub">Comodidad absoluta sin perder el estilo. Ideales para tu día a día.</p>
-        <div class="hero-actions">
-          <a href="catalogo.html?cat=Conjuntos" class="btn-hero-main">Ver Conjuntos &nbsp;→</a>
-        </div>
-      </div>
-    </div>
-    <!-- Slide 3 -->
-    <div class="carousel-slide">
-      <img src="img/Ejemplos/carrusel 3.webp" class="slide-bg" alt="Outfits de noche" loading="lazy" decoding="async">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Edición Limitada</div>
-        <h1>Noches<em>inolvidables</em></h1>
-        <p class="hero-sub">Brillá con nuestros nuevos tops y prendas de noche.</p>
-        <div class="hero-actions">
-          <a href="catalogo.html?cat=Tops" class="btn-hero-main">Ver Tops &nbsp;→</a>
-        </div>
-      </div>
-    </div>
+<!-- -- HERO STATIC -- -->
+<section class="hero-static" id="hero-section">
+  <img src="img/Logos/3.webp" alt="Fondo" class="hero-static-bg-image" fetchpriority="high" decoding="async">
+  <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="hero-static-logo" fetchpriority="high" decoding="async">
+  
+  <div class="hero-static-tl">
+    ELEGANCIA<br>ATEMPORAL<br>PARA VOS.
   </div>
-
-  <button class="hero-arrow prev" id="hero-prev" aria-label="Anterior"></button>
-  <button class="hero-arrow next" id="hero-next" aria-label="Siguiente"></button>
-
-  <div class="hero-dots" id="hero-dots"></div>
-
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-bar"></div>
+  
+  <div class="hero-static-bl">
+    <a href="catalogo.html" class="btn-hero-solid">COMPRAR AHORA</a>
+    <a href="catalogo.html" class="btn-hero-link">EXPLORAR LO NUEVO</a>
   </div>
+  
 </section>
 
 <!-- -- PROMO MARQUEE -- -->
 <div class="promo-bar">
   <div class="promo-track">
     <div class="promo-item">
-      ?✦ Somos de Berazategui <span class="sep">✦</span>
-      Envíos a todo el país <span class="sep">✦</span>
-      Stock inmediato <span class="sep">✦</span>
-      Puntos de encuentro disponibles <span class="sep">✦</span>
-      ✨ Nuevos ingresos cada semana <span class="sep">✦</span>
-      ?✦ Somos de Berazategui <span class="sep">✦</span>
-      Envíos a todo el país <span class="sep">✦</span>
-      Stock inmediato <span class="sep">✦</span>
-      Puntos de encuentro disponibles <span class="sep">✦</span>
-      ✨ Nuevos ingresos cada semana <span class="sep">✦</span>
-      ?✦ Somos de Berazategui <span class="sep">✦</span>
-      Envíos a todo el país <span class="sep">✦</span>
-      Stock inmediato <span class="sep">✦</span>
-      Puntos de encuentro disponibles <span class="sep">✦</span>
-      ✨ Nuevos ingresos cada semana <span class="sep">✦</span>
+      Calidad argentina <span class="sep">✦</span>
+      Estilo Old Money <span class="sep">✦</span>
+      Elegancia que perdura <span class="sep">✦</span>
+      Hecho para los que eligen bien <span class="sep">✦</span>
+      Calidad argentina <span class="sep">✦</span>
+      Estilo Old Money <span class="sep">✦</span>
+      Elegancia que perdura <span class="sep">✦</span>
+      Hecho para los que eligen bien <span class="sep">✦</span>
+      Calidad argentina <span class="sep">✦</span>
+      Estilo Old Money <span class="sep">✦</span>
+      Elegancia que perdura <span class="sep">✦</span>
+      Hecho para los que eligen bien <span class="sep">✦</span>
     </div>
   </div>
 </div>
+<!-- -- CATEGORY BANNER -- -->
+<div class="cat-banner">
+  <div class="cat-banner-inner">
+    
+    <!-- Item 1: Remeras -->
+    <div class="cat-banner-item">
+      <div class="cat-banner-img">
+        <img src="img/Productos/remera slim fit negra.webp" alt="Remeras" loading="lazy">
+      </div>
+      <div class="cat-banner-text">
+        <h3>REMERAS</h3>
+        <p>Esenciales del día a día.</p>
+        <a href="catalogo.html?cat=Remeras">COMPRAR REMERAS &rarr;</a>
+      </div>
+    </div>
+    
+    <!-- Item 2: Camisas -->
+    <div class="cat-banner-item">
+      <div class="cat-banner-img">
+        <img src="img/Productos/camisa blanca manga larga.webp" alt="Camisas" loading="lazy">
+      </div>
+      <div class="cat-banner-text">
+        <h3>CAMISAS</h3>
+        <p>Elegancia sin esfuerzo.</p>
+        <a href="catalogo.html?cat=Camisas">COMPRAR CAMISAS &rarr;</a>
+      </div>
+    </div>
+    
+    <!-- Item 3: Colección -->
+    <div class="cat-banner-item">
+      <div class="cat-banner-img">
+        <img src="img/Productos/remera oversize blanca.webp" alt="Colección" loading="lazy">
+      </div>
+      <div class="cat-banner-text">
+        <h3>COLECCIÓN</h3>
+        <p>Comodidad para cada día.</p>
+        <a href="catalogo.html">VER TODO &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- -- NEW VIBES SECTION -- -->
+<section class="new-vibes-sec">
+  <div class="new-vibes-left">
+    <div class="new-vibes-content fade-in">
+      <div class="nv-eyebrow">NUEVA TEMPORADA</div>
+      <h2 class="nv-title">NEW<br>VIBES</h2>
+      <p class="nv-desc">Descubrí todo lo nuevo<br>para vos esta temporada.</p>
+      <a href="catalogo.html" class="btn-nv">EXPLORAR COLECCIÓN</a>
+    </div>
+  </div>
+  <div class="new-vibes-right fade-in d1">
+    <img src="img/Productos/remera oversize blanca.webp" alt="Remera Oversize Blanca" loading="lazy">
+  </div>
+</section>
+
 
 <!-- -- TRUST -- -->
 <div class="trust-strip">
   <div class="trust-inner">
     <div class="trust-item fade-in">
-      <div class="trust-icon">🛵</div>
-      <div class="trust-text"><strong>Envíos por Moto o Uber</strong><span>Puntos de encuentro en estaciones</span></div>
+      <div class="trust-icon">🎖️</div>
+      <div class="trust-text"><strong>Prendas de calidad premium</strong><span>Materiales y confección de primera</span></div>
     </div>
     <div class="trust-item fade-in d1">
-      <div class="trust-icon">🔒</div>
-      <div class="trust-text"><strong>Pagos seguros</strong><span>Transferencia o Efectivo</span></div>
+      <div class="trust-icon">🏛️</div>
+      <div class="trust-text"><strong>Diseño atemporal</strong><span>Elegancia que trasciende modas</span></div>
     </div>
     <div class="trust-item fade-in d2">
-      <div class="trust-icon">📦</div>
-      <div class="trust-text"><strong>Stock disponible</strong><span>Consultá disponibilidad en historias</span></div>
+      <div class="trust-icon">🇦🇷</div>
+      <div class="trust-text"><strong>Hecho en Argentina</strong><span>Orgullo y trabajo nacional</span></div>
     </div>
     <div class="trust-item fade-in d3">
-      <div class="trust-icon">📍</div>
-      <div class="trust-text"><strong>Puntos de encuentro</strong><span>Coordinamos donde más te quede</span></div>
+      <div class="trust-icon">✨</div>
+      <div class="trust-text"><strong>Elegancia que perdura</strong><span>Para el Argentino de Bien</span></div>
     </div>
   </div>
 </div>
@@ -160,8 +176,7 @@
 <!-- -- NEW IN -- -->
 <div id="newin" class="section">
   <div class="sec-head">
-    <div class="sec-label fade-in">✶ Todo el catálogo</div>
-    <h2 class="sec-title fade-in">Nuestro <em>catálogo</em></h2>
+    <h2 class="nv-title fade-in" style="text-align: center; margin-bottom: 10px;">NUESTRA COLECCIÓN</h2>
     <p class="sec-sub fade-in">Explorá todos nuestros ingresos y descubrí tus nuevos favoritos.</p>
   </div>
   
@@ -172,117 +187,10 @@
 
 </div>
 
-<!-- -- CATEGORIES -- -->
-<div class="cats-wrap">
-  <div class="cats-inner">
-    <div class="sec-head">
-      <div class="sec-label fade-in">✶ Explorá</div>
-      <h2 class="sec-title fade-in">¿Qué estás <em>buscando?</em></h2>
-    </div>
-    <div class="cats-grid">
-      <a href="catalogo.html?cat=Conjuntos" class="cat-card fade-in">
-        <div class="cat-img">
-          <img src="img/Ejemplos/3.webp" alt="Conjuntos" loading="lazy">
-        </div>
-        <span class="cat-name">Conjuntos</span>
-        <span class="cat-sub">Top + pantalón  Top + short</span>
-      </a>
-      <a href="catalogo.html?cat=Tops" class="cat-card fade-in d1">
-        <div class="cat-img">
-          <img src="img/Ejemplos/4.webp" alt="Tops" loading="lazy">
-        </div>
-        <span class="cat-name">Tops</span>
-        <span class="cat-sub">Manga larga  Halter  Remeras</span>
-      </a>
-      <a href="catalogo.html?cat=Shorts" class="cat-card fade-in d2">
-        <div class="cat-img">
-          <img src="img/Ejemplos/8.webp" alt="Shorts" loading="lazy">
-        </div>
-        <span class="cat-name">Shorts</span>
-        <span class="cat-sub">Jean  Corderoy  Tela</span>
-      </a>
-    </div>
-  </div>
-</div>
-<!-- -- MÁS VENDIDOS -- -->
-<div class="section">
-  <div class="sec-head">
-    <div class="sec-label fade-in">✦ Los favoritos</div>
-    <h2 class="sec-title fade-in">Más <em>vendidos</em></h2>
-    <p class="sec-sub fade-in">Las chicas ya eligieron. El tuyo puede ser el último.</p>
-  </div>
-  <div class="prod-grid">
-    <a href="producto.html?id=4" class="prod-card fade-in" style="text-decoration:none;">
-      <div class="prod-img-box">
-        <span class="prod-badge badge-best" style="background:var(--negro);color:var(--blanco);">MÁS VENDIDO</span>
-        <button class="prod-wish" onclick="event.preventDefault(); showToast('🤍', '¡Agregado a favoritos!');"></button>
-        <img src="img/Productos/conjunto cher 1.webp" alt="Conjunto Cher" loading="lazy">
-        <div class="prod-cta">+ Ver detalle</div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">Conjunto Cher</div>
-        <div class="prod-prices">
-          <span class="price">$16.000</span>
-        </div>
-      </div>
-    </a>
 
-    <a href="producto.html?id=10" class="prod-card fade-in d1" style="text-decoration:none;">
-      <div class="prod-img-box">
-        <span class="prod-badge badge-best" style="background:var(--negro);color:var(--blanco);">MÁS VENDIDO</span>
-        <button class="prod-wish" onclick="event.preventDefault(); showToast('🤍', '¡Agregado a favoritos!');"></button>
-        <img src="img/Productos/remera shine 1.webp" alt="Remera Shine" loading="lazy">
-        <div class="prod-cta">+ Ver detalle</div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">Remera Shine</div>
-        <div class="prod-prices">
-          <span class="price">$8.000</span>
-        </div>
-      </div>
-    </a>
 
-    <a href="producto.html?id=1" class="prod-card fade-in d2" style="text-decoration:none;">
-      <div class="prod-img-box">
-        <span class="prod-badge badge-best" style="background:var(--negro);color:var(--blanco);">MÁS VENDIDO</span>
-        <button class="prod-wish" onclick="event.preventDefault(); showToast('🤍', '¡Agregado a favoritos!');"></button>
-        <img src="img/Productos/baggy 1.webp" alt="Baggy" loading="lazy">
-        <div class="prod-cta">+ Ver detalle</div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">Baggy</div>
-        <div class="prod-prices">
-          <span class="price">$26.500</span>
-        </div>
-      </div>
-    </a>
 
-    <a href="producto.html?id=13" class="prod-card fade-in d3" style="text-decoration:none;">
-      <div class="prod-img-box">
-        <span class="prod-badge badge-best" style="background:var(--negro);color:var(--blanco);">MÁS VENDIDO</span>
-        <button class="prod-wish" onclick="event.preventDefault(); showToast('🤍', '¡Agregado a favoritos!');"></button>
-        <img src="img/Productos/vestido silver night 1.webp" alt="Vestido Silver Night" loading="lazy">
-        <div class="prod-cta">+ Ver detalle</div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">Vestido Silver Night</div>
-        <div class="prod-prices">
-          <span class="price">$18.000</span>
-        </div>
-      </div>
-    </a>
-  </div>
-</div>
 
-<!-- -- GIFT CARD -- -->
-<div class="giftcard-wrap">
-  <div class="giftcard-inner">
-    <div class="gc-label fade-in">✦ Para regalar</div>
-    <h2 class="gc-title fade-in">¿No sabés<br><em>qué regalar?</em></h2>
-    <p class="gc-sub fade-in">Sorprendé con una Gift Card de Aisha Store. Quien la recibe elige lo que más le gusta, a precio real, con todo el amor.</p>
-    <a href="https://wa.me/5491128931432?text=Hola,%20quisiera%20saber%20sobre%20las%20Gift%20Cards" target="_blank" class="btn-gc fade-in">🎁 Comprar Gift Card</a>
-  </div>
-</div>
 
 
 
@@ -290,13 +198,16 @@
 <footer>
   <div class="footer-grid">
     <div class="foot-brand">
-      <a href="#" class="logo">AISHA</a>
-      <p>Indumentaria femenina para chicas con actitud. Básicos esenciales, conjuntos que enamoran y prendas que se convierten en favoritas.</p>
+      <a href="#" class="logo-wrap" style="color:var(--blanco); justify-content: flex-start; gap: 6px; align-items: center;">
+        <img src="img/Logos/ss_transparent.png" alt="Logo" class="sol-andino" style="height: 26px; object-fit: contain; filter: brightness(0) invert(1); display: block;">
+        <img src="img/Logos/sudwind.png" alt="SÜDWIND" class="logo-img" style="height: 26px; object-fit: contain; filter: brightness(0) invert(1); display: block;">
+      </a>
+      <p style="margin-top: 10px;">Südwind Store — Indumentaria masculina Old Money. Elegancia atemporal y confección nacional con el lema "Ropa para el Argentino de Bien".</p>
       <div class="social-row">
-        <a href="https://instagram.com/aisha.ssttore" target="_blank" class="soc-btn" aria-label="Instagram">
+        <a href="https://www.instagram.com/sudwind.ar/" target="_blank" class="soc-btn" aria-label="Instagram">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
-        <a href="https://wa.me/5491128931432" target="_blank" class="soc-btn" aria-label="WhatsApp">
+        <a href="https://wa.me/[TuWhatsApp]" target="_blank" class="soc-btn" aria-label="WhatsApp">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
         </a>
       </div>
@@ -308,11 +219,11 @@
         <li><a href="ayuda.html#envios">Envíos y tiempos</a></li>
         <li><a href="ayuda.html#cambios">Cambios y devoluciones</a></li>
         <li><a href="ayuda.html">Preguntas frecuentes</a></li>
-        <li><a href="https://wa.me/5491128931432" target="_blank">Contacto</a></li>
+        <li><a href="https://wa.me/[TuWhatsApp]" target="_blank">Contacto</a></li>
       </ul>
     </div>
     <div class="foot-col">
-      <h4>Aisha</h4>
+      <h4>Südwind</h4>
       <ul>
         <li><a href="index.html">Quiénes somos</a></li>
         <li><a href="ayuda.html">Términos y condiciones</a></li>
@@ -321,7 +232,7 @@
 
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Aisha Store — Indumentaria femenina <span style="display:inline-block; margin-left: 8px; font-size: 0.9em; opacity: 0.85;">| Diseñado por <a href="https://www.instagram.com/ssnehuen/" target="_blank" style="color:inherit; text-decoration:none; font-weight:600;">ssnehuen</a></span></p>
+    <p>© 2026 Südwind Store | Diseñado por <a href="https://www.instagram.com/ssnehuen/" target="_blank" style="color: var(--rosa-acento); text-decoration: none; font-weight: 600;">@ssnehuen</a></p>
 
   </div>
 </footer>
