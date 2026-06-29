@@ -1,144 +1,548 @@
-// Global image error handler to show placeholder for missing images
-window.addEventListener('error', function(e) {
-  if (e.target.tagName === 'IMG') {
-    e.target.onerror = null;
-    e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="%23FFF8F0" stroke="%23C9A96E" stroke-width="2"/><circle cx="150" cy="170" r="30" stroke="%23C9A96E" stroke-width="1.5" fill="none"/><line x1="150" y1="130" x2="150" y2="140" stroke="%23C9A96E" stroke-width="1.5"/><line x1="150" y1="200" x2="150" y2="210" stroke="%23C9A96E" stroke-width="1.5"/><line x1="110" y1="170" x2="120" y2="170" stroke="%23C9A96E" stroke-width="1.5"/><line x1="180" y1="170" x2="190" y2="170" stroke="%23C9A96E" stroke-width="1.5"/><text x="50%" y="260" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="%231A1A1A">SÜDWIND</text><text x="50%" y="290" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="10" letter-spacing="1" fill="%232D2D2D">[Imagen no disponible]</text></svg>';
-  }
-}, true);
-
 const PRODUCTS = [
   {
     id: 1,
-    name: 'Remeras Oversize Negra',
-    cat: 'Remeras',
-    price: 24000,
+    name: 'Baggy',
+    cat: 'Pantalones',
+    price: 26500,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Negro (Talles S al L).<br><strong>Detalles:</strong> Remera oversize confeccionada en algodón de alta densidad. Caída perfecta, cuello de rib ancho y calce moderno de hombros caídos.',
-    imgs: [
-      'img/Productos/remera oversize negra.webp'
-    ],
-    colors: ['Negro'],
-    sizes: ['S', 'M', 'L']
+    desc: '<strong>Colores y Talles:</strong> Negro (T1 y T3) - Gris (T3).<br><strong>Detalles:</strong> Pantalón baggy, súper cómodo.',
+    imgs: ['img/Productos/baggy 1.webp', 'img/Productos/baggy 2.webp', 'img/Productos/baggy 3.webp'],
+    colors: ['Negro', 'Gris'],
+    sizes: ['T1', 'T3'],
+    sizesByColor: {
+      'Negro': ['T1', 'T3'],
+      'Gris': ['T3']
+    }
   },
   {
     id: 2,
-    name: 'Remeras Oversize Blanca',
-    cat: 'Remeras',
-    price: 24000,
+    name: 'Body Polera',
+    cat: 'Bodys',
+    price: 12000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Blanco (Talles S al L).<br><strong>Detalles:</strong> Remera oversize de algodón peinado premium. Confort, frescura y caída estructural ideal para un look casual contemporáneo.',
-    imgs: [
-      'img/Productos/remera oversize blanca.webp'
-    ],
-    colors: ['Blanco'],
-    sizes: ['S', 'M', 'L']
+    desc: 'Body de Morley soft, talle único (cede hasta un t.4)',
+    imgs: ['img/Productos/body 1.webp', 'img/Productos/body 2.webp', 'img/Productos/body 3.webp'],
+    colors: ['Negro', 'Blanco'],
+    sizes: ['Único']
   },
   {
     id: 3,
-    name: 'Camiseta Manga Larga Negra',
-    cat: 'Remeras',
-    price: 28000,
+    name: 'Body Dual',
+    cat: 'Bodys',
+    price: 9000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Negro (Talles S al L).<br><strong>Detalles:</strong> Camiseta de manga larga de algodón rib elastizado. Calce cómodo y puños acanalados ajustados. Un básico esencial de media estación.',
-    imgs: [
-      'img/Productos/camiseta manga larga negra.webp'
-    ],
-    colors: ['Negro'],
-    sizes: ['S', 'M', 'L']
+    desc: '<strong>Detalles:</strong> Body dual, diseño exclusivo.<br>⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/body dual 1.webp', 'img/Productos/body dual 2.webp'],
+    colors: [],
+    sizes: []
   },
   {
     id: 4,
-    name: 'Camiseta Manga Larga Blanca',
-    cat: 'Remeras',
-    price: 28000,
+    name: 'Conjunto Cher',
+    cat: 'Conjuntos',
+    price: 16000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Blanco (Talles S al L).<br><strong>Detalles:</strong> Camiseta clásica de manga larga confeccionada en algodón jersey de tacto ultra suave. Excelente caída y versatilidad.',
-    imgs: [
-      'img/Productos/camiseta manga larga blanca.webp'
-    ],
-    colors: ['Blanco'],
-    sizes: ['S', 'M', 'L']
+    desc: '<strong>Colores:</strong> Negro.<br><strong>Detalles:</strong> Conjunto Cher, lo más pedido de la temporada.',
+    imgs: ['img/Productos/conjunto cher 1.webp', 'img/Productos/conjunto cher 2.webp'],
+    colors: ['Negro'],
+    sizes: ['Único']
   },
   {
     id: 5,
-    name: 'Remeras Slim Fit Blanca',
-    cat: 'Remeras',
-    price: 22000,
+    name: 'Corset Scarlet',
+    cat: 'Tops',
+    price: 17000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Blanco (Talles S al L).<br><strong>Detalles:</strong> Remera entallada de algodón pima peruano con elastano. Se adapta suavemente al contorno corporal ofreciendo máxima comodidad y prestancia.',
-    imgs: [
-      'img/Productos/remera slim fit blanca.webp'
-    ],
-    colors: ['Blanco'],
-    sizes: ['S', 'M', 'L']
+    desc: 'Corset con tiras regulables y taza armada.Talle 90-95',
+    imgs: ['img/Productos/corset scarlet talle 90-95 1.webp'],
+    colors: ['Negro'],
+    sizes: ['90', '95']
   },
   {
     id: 6,
-    name: 'Remeras Slim Fit Negra',
-    cat: 'Remeras',
-    price: 22000,
+    name: 'Jogging No Frizado',
+    cat: 'Pantalones',
+    price: 11000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Negro (Talles S al L).<br><strong>Detalles:</strong> Remera de calce slim fit en algodón peinado premium. Costuras reforzadas, suavidad inigualable y cuello clásico redondo.',
-    imgs: [
-      'img/Productos/remera slim fit negra.webp'
-    ],
-    colors: ['Negro'],
-    sizes: ['S', 'M', 'L']
+    desc: '<strong>Talles y Colores:</strong> Talle 3 (Bordó y Negro).<br><strong>Detalles:</strong> Jogging de media estación, rústico (no frizado). Súper cómodo.',
+    imgs: ['img/Productos/joggin no frizado 1.webp', 'img/Productos/joggin no frizado 2.webp'],
+    colors: ['Bordó', 'Negro'],
+    sizes: ['T3']
   },
   {
     id: 7,
-    name: 'Camisa Manga Larga Negra',
-    cat: 'Camisas',
-    price: 45000,
+    name: 'Musculosa Puntilla',
+    cat: 'Tops',
+    price: 7000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Negro (Talles S al L).<br><strong>Detalles:</strong> Camisa sastrera de manga larga en algodón satinado. Calce entallado y cuello rígido italiano, ideal para ocasiones formales.',
-    imgs: [
-      'img/Productos/camisa negra manga larga.webp'
-    ],
-    colors: ['Negro'],
-    sizes: ['S', 'M', 'L']
+    desc: 'Musculosa puntilla. Talle unico',
+    imgs: ['img/Productos/musculosa puntilla.webp'],
+    colors: ['Celeste', 'Cremita'],
+    sizes: ['Único']
   },
   {
     id: 8,
-    name: 'Camisa Manga Larga Blanca',
-    cat: 'Camisas',
-    price: 45000,
+    name: 'Pack Camiseta Morley',
+    cat: 'Remeras/Camisetas',
+    price: 21000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Blanco (Talles S al L).<br><strong>Detalles:</strong> Camisa formal de manga larga confeccionada en hilado Oxford de algodón premium. Calce estructurado y elegante.',
-    imgs: [
-      'img/Productos/camisa blanca manga larga.webp'
-    ],
-    colors: ['Blanco'],
-    sizes: ['S', 'M', 'L']
+    desc: 'Camiseta Morley+algodón. T.único (ceden hasta un 4)',
+    imgs: ['img/Productos/pack x2 1.webp', 'img/Productos/pack x2 2.webp', 'img/Productos/pack x2 3.webp'],
+    colors: ['Negro/blanco', 'Marron/blanco', 'Marron/negro'],
+    sizes: ['Único']
   },
   {
     id: 9,
-    name: 'Camisa Manga Corta Blanca',
-    cat: 'Camisas',
-    price: 38000,
+    name: 'Poncho Tul',
+    cat: 'Tops',
+    price: 10000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Blanco (Talles S al L).<br><strong>Detalles:</strong> Camisa de manga corta de lino y algodón de calce regular. Fresca, casual y de caída fluida para climas cálidos.',
-    imgs: [
-      'img/Productos/camisa blanca manga corta.webp'
-    ],
-    colors: ['Blanco'],
-    sizes: ['S', 'M', 'L']
+    desc: '<strong>Colores:</strong> Marrón y Bordó.<br><strong>Detalles:</strong> Poncho de tul, el complemento perfecto para un look único.',
+    imgs: ['img/Productos/poncho tul.webp'],
+    colors: ['Marrón', 'Bordó'],
+    sizes: ['Único']
   },
   {
     id: 10,
-    name: 'Camisa Manga Corta Negra',
-    cat: 'Camisas',
-    price: 38000,
+    name: 'Remera Shine',
+    cat: 'Remeras/Camisetas',
+    price: 8000,
     priceOld: null,
-    desc: '<strong>Talles y Colores:</strong> Negro (Talles S al L).<br><strong>Detalles:</strong> Camisa casual de manga corta confeccionada en poplín de algodón. Confortable, ligera y de estilo urbano depurado.',
-    imgs: [
-      'img/Productos/camisa negra manga corta.webp'
-    ],
+    desc: 'Remera de salir. Talle unico ( Abarca hasta un 2/3)',
+    imgs: ['img/Productos/remera shine 1.webp', 'img/Productos/remera shine 2.webp'],
+    colors: ['Negro', 'Dorado'],
+    sizes: ['Único']
+  },
+  {
+    id: 11,
+    name: 'Tops Básicos',
+    cat: 'Tops',
+    price: 7000,
+    priceOld: null,
+    desc: 'Top basico',
+    imgs: ['img/Productos/remeras basicas tipo 1 1.webp', 'img/Productos/remeras basicas tipo 1 2.webp'],
+    colors: ['Marrón'],
+    sizes: ['Único']
+  },
+  {
+    id: 12,
+    name: 'Remeras Básicas',
+    cat: 'Remeras/Camisetas',
+    price: 9000,
+    priceOld: null,
+    desc: 'Remera corta básica.',
+    imgs: ['img/Productos/remeras basicas tipo 2 1.webp', 'img/Productos/remeras basicas tipo 2 2.webp'],
+    colors: ['Blanco', 'Visón', 'Negro', 'Bordó'],
+    sizes: ['Único']
+  },
+  {
+    id: 13,
+    name: 'Vestido Silver Night',
+    cat: 'Vestidos',
+    price: 18000,
+    priceOld: null,
+    desc: '<strong>Detalles:</strong> Vestido Silver Night para lucir deslumbrante en tus salidas.<br>Consultar colores y talles disponibles.',
+    imgs: ['img/Productos/vestido silver night 1.webp', 'img/Productos/vestido silver night 2.webp', 'img/Productos/vestido silver night 3.webp'],
+    colors: [],
+    sizes: []
+  },
+  {
+    id: 14,
+    name: 'Conjunto Dalia',
+    cat: 'Conjuntos',
+    price: 13000,
+    priceOld: null,
+    desc: 'Conjuntos súper frescos',
+    imgs: ['img/Productos/conjunto dalia 1.webp', 'img/Productos/conjunto dalia 2.webp'],
+    colors: ['Celeste', 'Negro', 'Cremita'],
+    sizes: ['T2', 'T3', 'T4']
+  },
+  {
+    id: 15,
+    name: 'Conjunto Icon',
+    cat: 'Conjuntos, Polleras',
+    price: 21000,
+    priceOld: null,
+    desc: '<strong>Colores:</strong> Negro.<br><strong>Detalles:</strong> Conjunto Icon (se vende la pollera por separado también).',
+    imgs: ['img/Productos/conjunto icon 1.webp', 'img/Productos/conjunto icon 2.webp'],
     colors: ['Negro'],
-    sizes: ['S', 'M', 'L']
+    sizes: ['Único']
+  },
+  {
+    id: 16,
+    name: 'Set Sunset',
+    cat: 'Conjuntos',
+    price: 16500,
+    priceOld: null,
+    desc: '<strong>Talles disponibles:</strong> M<br><strong>Colores:</strong> Negro y Blanco.<br><strong>Detalles:</strong> Set Sunset ideal para este clima.',
+    imgs: ['img/Productos/set sunset 1.webp'],
+    colors: ['Negro', 'Blanco'],
+    sizes: ['M']
+  },
+  {
+    id: 17,
+    name: 'Short Blackout Basic',
+    cat: 'Shorts',
+    price: 7000,
+    priceOld: null,
+    desc: '<strong>Talle:</strong> Único.<br><strong>Detalles:</strong> Short Blackout Basic, un infaltable.<br>Consultar colores disponibles.',
+    imgs: ['img/Productos/short blackout basic 1.webp', 'img/Productos/short blackout basic 2.webp', 'img/Productos/short blackout basic 3.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 18,
+    name: 'Short Blackout',
+    cat: 'Shorts',
+    price: 20000,
+    priceOld: null,
+    desc: '<strong>Talles disponibles:</strong> 40<br><strong>Colores:</strong> Consultar colores disponibles.<br><strong>Detalles:</strong> Short Blackout súper cómodo.',
+    imgs: ['img/Productos/short blackout talle 40 1.webp'],
+    colors: [],
+    sizes: ['40']
+  },
+  {
+    id: 19,
+    name: 'Short Jean Azul',
+    cat: 'Shorts',
+    price: 19000,
+    priceOld: null,
+    desc: '<strong>Talles disponibles:</strong> 38<br><strong>Colores:</strong> Consultar colores disponibles.<br><strong>Detalles:</strong> Short de jean clásico.',
+    imgs: ['img/Productos/short jean azul talle 38.webp'],
+    colors: ['Azul'],
+    sizes: ['38']
+  },
+  {
+    id: 20,
+    name: 'Short Jean Celeste',
+    cat: 'Shorts',
+    price: 19000,
+    priceOld: null,
+    desc: '<strong>Talles disponibles:</strong> 42 a 46<br><strong>Colores:</strong> Consultar colores disponibles.<br><strong>Detalles:</strong> Short de jean en tono celeste.',
+    imgs: ['img/Productos/short jean celeste talle 46-42 1.webp'],
+    colors: ['Celeste'],
+    sizes: ['42', '44', '46']
+  },
+  {
+    id: 21,
+    name: 'Short Jean Negro',
+    cat: 'Shorts',
+    price: 19000,
+    priceOld: null,
+    desc: '<strong>Talles disponibles:</strong> 40<br><strong>Colores:</strong> Consultar colores disponibles.<br><strong>Detalles:</strong> Short de jean oscuro.',
+    imgs: ['img/Productos/short jean negro talle 40 1.webp'],
+    colors: ['Negro'],
+    sizes: ['40']
+  },
+  {
+    id: 22,
+    name: 'Vestido Black Ivory',
+    cat: 'Vestidos',
+    price: 9500,
+    priceOld: null,
+    desc: '<strong>Talles disponibles:</strong> Abarca hasta un 4<br><strong>Colores:</strong> Blanco.<br><strong>Detalles:</strong> Vestido Black Ivory, diseño exclusivo.',
+    imgs: ['img/Productos/vestido black ivory 1.webp', 'img/Productos/vestido black ivory 2.webp', 'img/Productos/vestido black ivory 3.webp'],
+    colors: ['Blanco'],
+    sizes: ['T1', 'T2', 'T3', 'T4']
+  },
+  {
+    id: 23,
+    name: 'Vestido Magnolia',
+    cat: 'Vestidos',
+    price: 13000,
+    priceOld: null,
+    desc: 'Vestido talle 2 (abarcan hasta un 4)',
+    imgs: ['img/Productos/vestido magnolia 1.webp'],
+    colors: ['Beige', 'Cremita'],
+    sizes: ['T2']
+  },
+  {
+    id: 24,
+    name: 'Vestido Sirena',
+    cat: 'Vestidos',
+    price: 13000,
+    priceOld: null,
+    desc: '<strong>Talles disponibles:</strong> Abarca hasta un 3<br><strong>Colores:</strong> Blanco.<br><strong>Detalles:</strong> Vestido Sirena espectacular para la noche.',
+    imgs: ['img/Productos/vestido sirena 1.webp', 'img/Productos/vestido sirena 2.webp', 'img/Productos/vestido sirena 3.webp'],
+    colors: ['Blanco'],
+    sizes: ['T1', 'T2', 'T3']
+  },
+  {
+    id: 25,
+    name: 'Vestido Tulum',
+    cat: 'Vestidos',
+    price: 15000,
+    priceOld: null,
+    desc: 'Vestido playero',
+    imgs: ['img/Productos/vestido tulum talle 2 1 .webp'],
+    colors: [],
+    sizes: ['T1', 'T2']
+  },
+  {
+    id: 26,
+    name: 'Vestido Venus',
+    cat: 'Vestidos',
+    price: 18000,
+    priceOld: null,
+    desc: 'Vestido de salir. Talle unico',
+    imgs: ['img/Productos/vestido venus 1.webp', 'img/Productos/vestido venus 2.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 27,
+    name: 'Brazalete Arena Plateado',
+    cat: 'Accesorios',
+    price: 6000,
+    priceOld: null,
+    desc: 'Brazalete plateado regulable',
+    imgs: ['img/Productos/brazalete arena plateado 1.webp', 'img/Productos/brazalete arena plateado 2.webp'],
+    colors: ['Plateado'],
+    sizes: ['Único']
+  },
+  {
+    id: 28,
+    name: 'Brazalete Hoja Dorado',
+    cat: 'Accesorios',
+    price: 6000,
+    priceOld: null,
+    desc: 'Brazalete dorado regulable',
+    imgs: ['img/Productos/brazalete hoja dorado 2.webp', 'img/Productos/brazalete hoja dorado 3.webp'],
+    colors: ['Dorado'],
+    sizes: ['Único']
+  },
+  {
+    id: 29,
+    name: 'Cinto Espiral',
+    cat: 'Accesorios',
+    price: 8500,
+    priceOld: null,
+    desc: '<strong>Detalles:</strong> Cinto espiral para darle un toque distinto a tu outfit.',
+    imgs: ['img/Productos/cinto espiral 1.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 30,
+    name: 'Cinto Sol',
+    cat: 'Accesorios',
+    price: 8500,
+    priceOld: null,
+    desc: '<strong>Detalles:</strong> Cinto sol, un clásico moderno.',
+    imgs: ['img/Productos/cinto sol 1 .webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 31,
+    name: 'Vestido Print',
+    cat: 'Vestidos',
+    price: 19000,
+    priceOld: null,
+    desc: '<strong>Detalles:</strong> Vestido print, súper versátil.<br>Consultar talles disponibles.',
+    imgs: ['img/Productos/vestido print 1.webp', 'img/Productos/vestido print 2.webp', 'img/Productos/vestido print 3.webp'],
+    colors: [],
+    sizes: []
+  },
+  {
+    id: 32,
+    name: 'Top Venus',
+    cat: 'Tops',
+    price: 12000,
+    priceOld: null,
+    desc: 'Top con lentejuelas. Talle unico',
+    imgs: ['img/Productos/top venus 1.webp', 'img/Productos/top venus 2.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 33,
+    name: 'Camiseta Morley',
+    cat: 'Remeras/Camisetas',
+    price: 12000,
+    priceOld: null,
+    desc: 'Camiseta Morley+algodón. T.único (ceden hasta un 4)',
+    imgs: ['img/Productos/pack x2 2.webp', 'img/Productos/pack x2 3.webp'],
+    colors: ['Negro', 'Marrón', 'Blanco'],
+    sizes: ['Único']
+  },
+  {
+    id: 34,
+    name: 'Camiseta Morley',
+    cat: 'Remeras/Camisetas',
+    price: 10000,
+    priceOld: null,
+    desc: 'Talle único.',
+    imgs: ['img/Productos/Morley 10000.webp'],
+    colors: ['Bordó', 'Blanco'],
+    sizes: ['Único']
+  },
+  {
+    id: 35,
+    name: 'Pantalón Darlon',
+    cat: 'Pantalones',
+    price: 15000,
+    priceOld: null,
+    desc: '<strong>Detalles:</strong> Pantalón Darlon.<br>⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/pantalon darlon 1.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 36,
+    name: 'Conjunto Aisha',
+    cat: 'Conjuntos',
+    price: 27000,
+    priceOld: null,
+    desc: '<strong>Detalles:</strong> Conjunto Aisha.<br>⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/conjunto aisha 1.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 37,
+    name: 'Camiseta con frunce',
+    cat: 'Remeras/Camisetas',
+    price: 7000,
+    priceOld: null,
+    desc: '<strong>Talle:</strong> Único<br><strong>Detalles:</strong> Camiseta con frunce 🔥.<br>⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/camiseta frunce.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 38,
+    name: 'Body escote cuadrado',
+    cat: 'Bodys',
+    price: 7000,
+    priceOld: null,
+    desc: '<strong>Talle:</strong> Único (sede hasta un talle 3)<br><strong>Colores:</strong> Disponible en Negro y Bordó<br><strong>Detalles:</strong> Body manga corta con escote cuadrado. Se adapta genial a la figura.<br>⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/body escote cuadrado 1.webp'],
+    colors: ['Negro', 'Bordó'],
+    sizes: ['Único']
+  },
+  {
+    id: 39,
+    name: 'Camiseta corta escote cuadrado',
+    cat: 'Remeras/Camisetas',
+    price: 7000,
+    priceOld: null,
+    desc: '<strong>Talle:</strong> Único<br><strong>Detalles:</strong> Camiseta corta escote cuadrado 🤎.<br>⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/camiseta corta escote cuadrado 1.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 40,
+    name: 'Cinto Órbita',
+    cat: 'Accesorios',
+    price: 8500,
+    priceOld: null,
+    desc: 'Cinto dorado',
+    imgs: ['img/Productos/cinto orbita 1.webp'],
+    colors: [],
+    sizes: ['Único']
+  },
+  {
+    id: 41,
+    name: 'Pollera Moonlight',
+    cat: 'Polleras',
+    price: 12000,
+    priceOld: null,
+    desc: 'Mini de lentejuelas. Talle único',
+    imgs: ['img/Productos/conjunto icon 1.webp'],
+    colors: ['Negro'],
+    sizes: ['Único']
+  },
+  {
+    id: 42,
+    name: 'Conjunto Tini',
+    cat: 'Conjuntos',
+    price: 24000,
+    priceOld: null,
+    desc: 'Color dulce de leche (Talle 42).',
+    imgs: ['img/Productos/conjunto dalia 1.webp'],
+    colors: ['Dulce de leche'],
+    sizes: ['42']
+  },
+  {
+    id: 43,
+    name: 'Suéter',
+    cat: 'Sueters',
+    price: 20000,
+    priceOld: null,
+    desc: 'Suéter súper calentito.',
+    imgs: ['img/Productos/sueter 1.webp'],
+    colors: ['Beige'],
+    sizes: ['Único']
+  },
+  {
+    id: 44,
+    name: 'Jogging Oxford',
+    cat: 'Pantalones',
+    price: 11000,
+    priceOld: null,
+    desc: 'Jogging oxford sin friza',
+    imgs: ['img/Productos/joggin no frizado 1.webp'],
+    colors: ['Negro', 'Bordó'],
+    sizes: ['T3']
+  },
+  {
+    id: 45,
+    name: 'Cardigan',
+    cat: 'Sueters',
+    price: 20000,
+    priceOld: null,
+    desc: '⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/cardigan 1.webp', 'img/Productos/cardigan 2.webp'],
+    colors: [],
+    sizes: []
+  },
+  {
+    id: 46,
+    name: 'Camiseta Oxford Puntilla',
+    cat: 'Remeras/Camisetas',
+    price: 12000,
+    priceOld: null,
+    desc: '',
+    imgs: ['img/Productos/camisa oxford puntilla 1.webp', 'img/Productos/camisa oxford puntilla 2.webp'],
+    colors: [],
+    sizes: []
+  },
+  {
+    id: 47,
+    name: 'Top Buche',
+    cat: 'Tops',
+    price: 8500,
+    priceOld: null,
+    desc: '⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/top buche 2.webp', 'img/Productos/top buche 1.webp'],
+    colors: [],
+    sizes: []
+  },
+  {
+    id: 48,
+    name: 'Camiseta con Corpiño',
+    cat: 'Remeras/Camisetas',
+    price: 13000,
+    priceOld: null,
+    desc: '⚠️ <strong>¡AGOTADO!</strong>',
+    imgs: ['img/Productos/camiseta con corpino 1.webp', 'img/Productos/camiseta con corpino 2.webp'],
+    colors: [],
+    sizes: []
+  },
+  {
+    id: 49,
+    name: 'Body Escote en V Puntilla',
+    cat: 'Bodys',
+    price: 10000,
+    priceOld: null,
+    desc: '',
+    imgs: ['img/Productos/body escote en v puntilla 1.webp', 'img/Productos/body escote en v puntilla 2.webp'],
+    colors: [],
+    sizes: []
   }
 ];
-
 function formatPrice(n) {
   if (n === 0) return 'Consultar precio';
   return '$' + n.toLocaleString('es-AR');
@@ -172,7 +576,7 @@ if (ham && mobNav) {
 // ════════════════════════════════════════
 // CART LOCALSTORAGE
 // ════════════════════════════════════════
-let cart = JSON.parse(localStorage.getItem('sudwind_cart')) || [];
+let cart = JSON.parse(localStorage.getItem('aisha_cart')) || [];
 // Sincronizar el carrito local con los datos más recientes de PRODUCTS
 cart = cart.map(item => {
   const latestProduct = PRODUCTS.find(p => p.id === item.id);
@@ -187,7 +591,7 @@ cart = cart.map(item => {
   }
   return item;
 });
-localStorage.setItem('sudwind_cart', JSON.stringify(cart));
+localStorage.setItem('aisha_cart', JSON.stringify(cart));
 let tTimer;
 
 function updateCartCount() {
@@ -232,7 +636,7 @@ function addToCart(pid, color = null, size = null) {
     });
   }
   
-  localStorage.setItem('sudwind_cart', JSON.stringify(cart));
+  localStorage.setItem('aisha_cart', JSON.stringify(cart));
   updateCartCount();
   bumpCart();
   
@@ -249,7 +653,7 @@ function addToCart(pid, color = null, size = null) {
 // ════════════════════════════════════════
 // WISHLIST LOGIC
 // ════════════════════════════════════════
-let favorites = JSON.parse(localStorage.getItem('sudwind_favorites')) || [];
+let favorites = JSON.parse(localStorage.getItem('aisha_favorites')) || [];
 
 function toggleFavorite(pid) {
   const idx = favorites.indexOf(pid);
@@ -262,7 +666,7 @@ function toggleFavorite(pid) {
     showToast('❤️', '¡Agregado a favoritos!');
     isFav = true;
   }
-  localStorage.setItem('sudwind_favorites', JSON.stringify(favorites));
+  localStorage.setItem('aisha_favorites', JSON.stringify(favorites));
   updateWishlistButtons();
   
   if (typeof renderFavoritesGrid === 'function') {
@@ -402,14 +806,14 @@ function renderDrawer() {
 function changeQty(idx, delta) {
   if (!cart[idx]) return;
   cart[idx].qty = Math.max(1, (cart[idx].qty || 1) + delta);
-  localStorage.setItem('sudwind_cart', JSON.stringify(cart));
+  localStorage.setItem('aisha_cart', JSON.stringify(cart));
   updateCartCount();
   renderDrawer();
 }
 
 function removeFromCart(idx) {
   cart.splice(idx, 1);
-  localStorage.setItem('sudwind_cart', JSON.stringify(cart));
+  localStorage.setItem('aisha_cart', JSON.stringify(cart));
   updateCartCount();
   renderDrawer();
 }
@@ -648,7 +1052,7 @@ function initScrollAnimations() {
   document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
   
   // Guardamos el observer globalmente para usarlo en contenido dinámico
-  window.sudwindObserver = observer;
+  window.aishaObserver = observer;
 }
 
 // ════════════════════════════════════════
@@ -668,7 +1072,7 @@ function renderHomeCatalog() {
     card.href = `producto.html?id=${p.id}`;
     card.className = `prod-card fade-in ${delay}`;
     if (i >= 6) card.classList.add('home-catalog-desktop-only');
-    if (window.sudwindObserver) setTimeout(() => window.sudwindObserver.observe(card), 50);
+    if (window.aishaObserver) setTimeout(() => window.aishaObserver.observe(card), 50);
     card.style.textDecoration = 'none';
     
     let priceHtml = `<span class="price">${formatPrice(p.price)}</span>`;
@@ -704,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // FLOATING INSTAGRAM BUTTON
   // ════════════════════════════════════════
   const igBtn = document.createElement('a');
-  igBtn.href = 'https://www.instagram.com/sudwind.ar/';
+  igBtn.href = 'https://instagram.com/aisha.ssttore';
   igBtn.target = '_blank';
   igBtn.ariaLabel = 'Visitanos en Instagram';
   igBtn.style.cssText = `
@@ -753,16 +1157,4 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', adjustIgBtnPos);
 
   document.body.appendChild(igBtn);
-
-  // ════════════════════════════════════════
-  // ALTERNATING NAME PLACEHOLDER
-  // ════════════════════════════════════════
-  const nameInputs = document.querySelectorAll('#prof-name, #chk-name');
-  if (nameInputs.length > 0) {
-    const names = ['Ej: César Augusto', 'Ej: Julio César'];
-    const lastToggle = localStorage.getItem('namePhToggle') || '0';
-    const nextToggle = lastToggle === '0' ? 1 : 0;
-    nameInputs.forEach(input => input.placeholder = names[nextToggle]);
-    localStorage.setItem('namePhToggle', nextToggle.toString());
-  }
 });

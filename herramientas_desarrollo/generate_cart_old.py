@@ -1,0 +1,389 @@
+import re
+
+with open('index.html', 'r', encoding='utf-8') as f:
+    idx_content = f.read()
+
+header = re.search(r'<!-- -- HEADER -- -->.*?</header>', idx_content, re.DOTALL).group(0)
+footer = re.search(r'<!-- -- FOOTER -- -->.*?</footer>', idx_content, re.DOTALL).group(0)
+
+# Links for catalog in header
+header = header.replace('<a href="#">New In</a>', '<a href="catalogo.html?tag=new">New In</a>')
+header = header.replace('<a href="#">Conjuntos</a>', '<a href="catalogo.html?cat=Conjuntos">Conjuntos</a>')
+header = header.replace('<a href="#">Tops</a>', '<a href="catalogo.html?cat=Tops">Tops</a>')
+header = header.replace('<a href="#">Shorts</a>', '<a href="catalogo.html?cat=Shorts">Shorts</a>')
+header = header.replace('<a href="#" class="nav-sale">Sale</a>', '<a href="catalogo.html?tag=sale" class="nav-sale">Sale</a>')
+header = header.replace('<button class="icon-btn" aria-label="Buscar">', '<a href="catalogo.html?search=focus" class="icon-btn" aria-label="Buscar" style="text-decoration:none;">').replace('</svg>\n      </button>\n      <button class="icon-btn" aria-label="Mi cuenta">', '</svg>\n      </a>\n      <button class="icon-btn" aria-label="Mi cuenta">')
+
+# We're manually removing Mi Cuenta from the header
+header = re.sub(r'<button class="icon-btn" aria-label="Mi cuenta">.*?</button>', '', header, flags=re.DOTALL)
+header = re.sub(r'<a href="cuenta.html".*?</a>', '', header, flags=re.DOTALL)
+
+user_code = '''<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrito — AISHA STORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="img/Ejemplos/ss.png">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ── CARRITO — ESTILO LEUTTHE ── */
+.cart-page { max-width: 1160px; margin: 0 auto 80px; padding: 0 40px; min-height: 50vh; }
+.cart-nav-top { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 500; color: var(--gris-texto); margin: 24px 0 20px; text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+.cart-nav-top:hover { color: var(--negro); }
+
+/* BARRA DE BENEFICIOS */
+.benefits-bar { border: 1px solid var(--gris-medio); padding: 16px 24px; margin-bottom: 0; }
+.benefits-progress { height: 4px; background: var(--gris-medio); margin: 10px 0 8px; overflow: hidden; }
+.benefits-fill { height: 100%; background: var(--negro); transition: width 0.6s ease; }
+.benefits-msg { font-size: 0.75rem; color: var(--gris-texto); letter-spacing: 0.02em; }
+.benefits-msg strong { color: var(--negro); }
+
+/* LAYOUT */
+.cart-body { display: grid; grid-template-columns: 1fr 360px; border: 1px solid var(--gris-medio); border-top: none; }
+
+/* COLUMNA IZQUIERDA */
+.cart-items-panel { border-right: 1px solid var(--gris-medio); }
+.cart-items-header {
+  padding: 14px 24px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase;
+  border-bottom: 1px solid var(--gris-medio); color: var(--negro);
+}
+.cart-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 24px;
+  border-bottom: 1px solid var(--gris-medio);
+  position: relative;
+}
+.c-img { width: 90px; height: 116px; object-fit: cover; background: var(--crema); flex-shrink: 0; }
+.c-info-text { flex: 1; min-width: 0; }
+.c-cat { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gris-texto); margin-bottom: 6px; }
+.c-name { font-weight: 700; font-size: 0.85rem; color: var(--negro); line-height: 1.3; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+
+/* Controles de cantidad estilo leutthe: box simple */
+.c-qty-wrap { display: flex; align-items: center; gap: 0; margin-bottom: 14px; }
+.c-qty-wrap button {
+  width: 32px; height: 34px;
+  border: 1px solid var(--gris-medio); background: none; cursor: pointer;
+  font-size: 1rem; color: var(--negro); font-weight: 600; line-height: 1;
+  transition: background 0.15s;
+}
+.c-qty-wrap button:hover { background: var(--crema); }
+.c-qty-wrap span {
+  width: 44px; height: 34px;
+  border-top: 1px solid var(--gris-medio); border-bottom: 1px solid var(--gris-medio);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 600; color: var(--negro);
+}
+.c-price { font-size: 0.90rem; font-weight: 700; color: var(--negro); }
+.c-del {
+  position: absolute; top: 24px; right: 24px;
+  background: none; border: none; cursor: pointer;
+  color: var(--gris-texto); font-size: 0; /* icono SVG */
+  transition: color 0.2s; padding: 2px;
+}
+.c-del:hover { color: var(--negro); }
+
+/* Footer de productos */
+.cart-items-footer {
+  padding: 14px 24px; display: flex; justify-content: flex-end;
+  border-bottom: 1px solid var(--gris-medio);
+}
+.btn-vaciar {
+  background: none; border: none; cursor: pointer;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gris-texto); display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.btn-vaciar:hover { color: var(--negro); }
+
+/* COLUMNA DERECHA: RESUMEN */
+.cart-summary-panel { padding: 0; position: sticky; top: 120px; align-self: start; display: flex; flex-direction: column; max-height: calc(100vh - 140px); overflow-y: auto; scrollbar-width: none; }
+.cart-summary-panel::-webkit-scrollbar { display: none; }
+.summary-header { padding: 14px 24px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; color: var(--negro); border-bottom: 1px solid var(--gris-medio); }
+
+/* Barra cuotas dentro del resumen */
+.cuotas-bar { padding: 16px 24px; border-bottom: 1px solid var(--gris-medio); }
+.cuotas-txt { font-size: 0.72rem; color: var(--negro); font-weight: 500; margin-bottom: 10px; }
+.cuotas-track { height: 4px; background: var(--gris-medio); }
+.cuotas-fill { height: 100%; background: var(--negro); transition: width 0.6s ease; }
+
+/* Totales */
+.summary-totals { padding: 16px 24px; border-bottom: 1px solid var(--gris-medio); display: flex; flex-direction: column; gap: 8px; }
+.summary-row { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--gris-texto); }
+.summary-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--gris-medio); }
+.summary-total-label { font-size: 0.90rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--negro); }
+.summary-total-val { font-size: 1.3rem; font-weight: 700; color: var(--negro); }
+
+/* Formulario */
+.summary-form { padding: 20px 24px; border-bottom: 1px solid var(--gris-medio); display: flex; flex-direction: column; gap: 14px; }
+.chk-label { display: block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gris-texto); margin-bottom: 5px; }
+.chk-input {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid var(--gris-medio); border-radius: 0;
+  font-family: var(--font-body); font-size: 0.85rem; color: var(--negro);
+  background: var(--blanco); outline: none;
+  transition: border-color 0.2s; box-sizing: border-box;
+}
+.chk-input:focus { border-color: var(--negro); }
+
+/* Botón principal */
+.summary-cta { padding: 20px 24px; }
+.btn-checkout {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; background: var(--negro); color: var(--blanco);
+  border: 2px solid var(--negro); padding: 16px;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s; margin-bottom: 10px;
+}
+.btn-checkout:hover { background: var(--blanco); color: var(--negro); }
+.btn-keep {
+  display: block; width: 100%; text-align: center; background: none;
+  border: none; padding: 10px; font-size: 0.70rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+  color: var(--gris-texto); text-decoration: underline; transition: color 0.2s;
+}
+.btn-keep:hover { color: var(--negro); }
+
+.cart-empty { text-align: center; color: var(--gris-texto); padding: 80px 0; }
+.cart-empty p { font-size: 1rem; margin-bottom: 20px; }
+.cart-empty a { display: inline-block; padding: 14px 32px; background: var(--negro); color: var(--blanco); text-decoration: none; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+
+@media(max-width: 860px) {
+  .cart-page { padding: 0; margin: 0 0 80px; }
+  .cart-body { grid-template-columns: 1fr; border: none; }
+  .cart-items-panel { border-right: none; border: 1px solid var(--gris-medio); }
+  .cart-summary-panel { position: static; border: 1px solid var(--gris-medio); border-top: none; }
+  .c-img { width: 80px; height: 103px; }
+  .benefits-bar { margin: 0 0 0; }
+  .summary-header { border-top: 1px solid var(--gris-medio); }
+}
+</style>
+</head>
+<body>
+
+{REPLACE_HEADER}
+
+<div class="cart-page">
+  <a href="javascript:history.back()" class="cart-nav-top">← Volver</a>
+  <h1 class="cart-title">Mi Carrito</h1>
+
+  <div id="cart-content"></div>
+</div>
+
+{REPLACE_FOOTER}
+
+<!-- BOTTOM NAV (MOBILE) -->
+<nav class="bottom-nav" id="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a href="index.html" class="bn-item" aria-label="Inicio">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="bn-label">Inicio</span>
+    </a>
+    <a href="catalogo.html" class="bn-item" aria-label="Catálogo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span class="bn-label">Catálogo</span>
+    </a>
+    <a href="catalogo.html?search=focus" class="bn-item" aria-label="Buscar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      <span class="bn-label">Buscar</span>
+    </a>
+    <button class="bn-item active" id="bn-cart" aria-label="Carrito">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="bn-badge" id="bn-cart-count">0</span>
+      <span class="bn-label">Carrito</span>
+    </button>
+  </div>
+</nav>
+
+<script src="js/main.js?v=9"></script>
+<script>
+const TRASH_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>`;
+
+document.addEventListener('DOMContentLoaded', renderCart);
+
+function renderCart() {
+  const container = document.getElementById('cart-content');
+  const total = cart.reduce((s, i) => s + i.price * (i.qty || 1), 0);
+
+  if (!cart || cart.length === 0) {
+    container.innerHTML = `<div class="cart-empty"><p>Tu carrito está vacío.</p><a href="catalogo.html">Explorar productos</a></div>`;
+    return;
+  }
+
+  // PRODUCTOS (col izquierda)
+  const totalQty = cart.reduce((s, i) => s + (i.qty || 1), 0);
+  let items = `<div class="cart-items-panel">
+    <div class="cart-items-header">PRODUCTOS (${totalQty})</div>`;
+
+  cart.forEach((item, idx) => {
+    const qty = item.qty || 1;
+    items += `
+      <div class="cart-item">
+        <img src="${item.imgs[0]}" alt="${item.name}" class="c-img">
+        <div class="c-info-text">
+          <div class="c-cat">${item.cat}</div>
+          <div class="c-name">${item.name}</div>
+          <div class="c-qty-wrap">
+            <button onclick="updateQty(${idx},-1)">−</button>
+            <span>${qty}</span>
+            <button onclick="updateQty(${idx},1)">+</button>
+          </div>
+          <div class="c-price">${formatPrice(item.price)}</div>
+        </div>
+        <button class="c-del" onclick="removeFromCart(${idx})" title="Eliminar">${TRASH_SVG}</button>
+      </div>`;
+  });
+
+  items += `<div class="cart-items-footer">
+    <button class="btn-vaciar" onclick="vaciarCarrito()">${TRASH_SVG} Vaciar carrito</button>
+  </div></div>`;
+
+  // SECCIÓN TAMBIÉN TE PUEDE GUSTAR
+  const cartIds = cart.map(c => c.id);
+  const sugeridos = PRODUCTS.filter(p => !cartIds.includes(p.id)).slice(0, 4);
+  
+  if (sugeridos.length > 0) {
+    let relHtml = `<div style="margin-top: 40px;">
+      <h3 style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; text-align: center; margin-bottom: 24px; color: var(--negro);">También te puede gustar</h3>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">`;
+      
+    sugeridos.forEach(r => {
+      relHtml += `
+        <a href="producto.html?id=${r.id}" class="fade-in" style="text-decoration:none; color:inherit; text-align:center; display:block;">
+          <img src="${r.imgs[0]}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; margin-bottom:10px; background:var(--crema);">
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px; color:var(--negro);">${r.name}</div>
+          <div style="font-size:0.85rem; font-weight:700; color:var(--negro);">${formatPrice(r.price)}</div>
+        </a>`;
+    });
+    
+    relHtml += `</div></div>`;
+    items += relHtml;
+  }
+
+  // RESUMEN (col derecha)
+  const envioTxt = 'A calcular';
+
+  const summary = `<div class="cart-summary-panel">
+    <div class="summary-header">RESUMEN</div>
+    <div class="summary-totals">
+      <div class="summary-row"><span>Subtotal</span><span>${formatPrice(total)}</span></div>
+      <div class="summary-row"><span>Envío</span><span>${envioTxt}</span></div>
+      <div class="summary-total-row">
+        <span class="summary-total-label">TOTAL*</span>
+        <span class="summary-total-val">${formatPrice(total)}</span>
+      </div>
+      <p style="font-size:0.65rem;color:var(--gris-texto);line-height:1.5;margin-top:8px;">
+        * El monto final se confirmará al elegir el método de envío.
+      </p>
+    </div>
+    <div class="summary-form">
+      <div>
+        <label class="chk-label">Tu nombre *</label>
+        <input type="text" class="chk-input" id="chk-name" placeholder="Ej: Camila Torres">
+      </div>
+      <div>
+        <label class="chk-label">Método de entrega</label>
+        <select class="chk-input" id="chk-delivery">
+          <option value="Envío por Moto/Uber">Envío por Moto/Uber</option>
+          <option value="Envío por correo (Resto del país)">Envío por correo (Resto del país)</option>
+          <option value="Coordinar punto de encuentro">Coordinar punto de encuentro</option>
+        </select>
+      </div>
+      <div>
+        <label class="chk-label">Medio de pago</label>
+        <select class="chk-input" id="chk-payment">
+          <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="MercadoPago">MercadoPago</option>
+          <option value="Tarjeta">Tarjeta de crédito/débito</option>
+        </select>
+      </div>
+    </div>
+    <div class="summary-cta">
+      <button class="btn-checkout" onclick="checkoutWhatsApp()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Finalizar compra
+      </button>
+      <a href="catalogo.html" class="btn-keep">Seguir eligiendo</a>
+    </div>
+  </div>`;
+
+  container.innerHTML = `<div class="cart-body">
+    <div class="cart-left-col">
+      ${items}
+    </div>
+    ${summary}
+  </div>`;
+
+  const profile = JSON.parse(localStorage.getItem('aisha_profile'));
+  if (profile) {
+    if (profile.name) document.getElementById('chk-name').value = profile.name;
+    if (profile.delivery) document.getElementById('chk-delivery').value = profile.delivery;
+    if (profile.payment) document.getElementById('chk-payment').value = profile.payment;
+  }
+
+  setTimeout(() => {
+    if(window.aishaObserver) {
+      document.querySelectorAll('.fade-in, .fade-up').forEach(el => window.aishaObserver.observe(el));
+    }
+  }, 100);
+}
+
+function vaciarCarrito() {
+  if (!confirm('¿Vaciar todo el carrito?')) return;
+  cart = [];
+  localStorage.setItem('aisha_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  localStorage.setItem('aisha_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function updateQty(index, change) {
+  if (!cart[index]) return;
+  const newQty = (cart[index].qty || 1) + change;
+  if (newQty < 1) { removeFromCart(index); return; }
+  cart[index].qty = newQty;
+  localStorage.setItem('aisha_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function checkoutWhatsApp() {
+  const name = document.getElementById('chk-name').value.trim();
+  const delivery = document.getElementById('chk-delivery').value;
+  const payment = document.getElementById('chk-payment').value;
+  if (!name) { alert('Por favor ingresá tu nombre para continuar.'); document.getElementById('chk-name').focus(); return; }
+  
+  let msg = `¡Hola equipo de Aisha! Soy ${name}.\\nLes escribo porque armé mi carrito y me quiero llevar estos elegidos:\\n\\n`;
+  let total = 0;
+  cart.forEach(item => {
+    const qty = item.qty || 1;
+    msg += `• ${qty}x ${item.name} → ${formatPrice(item.price)}\\n`;
+    total += item.price * qty;
+  });
+  msg += `\\nTotal del pedido: ${formatPrice(total)}\\n\\n`;
+  msg += `Quiero coordinar por: ${delivery}\\n`;
+  msg += `Preferiría pagar con: ${payment}\\n\\n`;
+  msg += `¡Quedo a la espera para avanzar! Gracias.`;
+
+  window.open(`https://wa.me/5491128931432?text=${encodeURIComponent(msg)}`, '_blank');
+}
+</script>
+</body>
+</html>'''
+
+user_code = user_code.replace('{REPLACE_HEADER}', header).replace('{REPLACE_FOOTER}', footer)
+
+with open('carrito.html', 'w', encoding='utf-8') as f:
+    f.write(user_code)
+
+print("carrito.html generated from old design with fixed header/footer")
